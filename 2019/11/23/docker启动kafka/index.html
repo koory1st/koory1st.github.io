@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>docker启动kafka | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="docker启动kafka最近在做微服务项目，准备使用kafka作为MQ。自己以前没接触过kafka，所以自己想搭建一个环境，试用一下。 使用docker-compose启动kafka首先是docker-compose.yml 123456789101112131415version: &amp;#x27;3&amp;#x27;services:  zookeeper:    image: wurstmeiste">
+<meta property="og:type" content="article">
+<meta property="og:title" content="docker启动kafka">
+<meta property="og:url" content="http://example.com/2019/11/23/docker%E5%90%AF%E5%8A%A8kafka/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="docker启动kafka最近在做微服务项目，准备使用kafka作为MQ。自己以前没接触过kafka，所以自己想搭建一个环境，试用一下。 使用docker-compose启动kafka首先是docker-compose.yml 123456789101112131415version: &amp;#x27;3&amp;#x27;services:  zookeeper:    image: wurstmeiste">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2019-11-23T11:31:01.000Z">
+<meta property="article:modified_time" content="2019-11-23T12:26:09.439Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="docker 微服务">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-docker启动kafka" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/11/23/docker%E5%90%AF%E5%8A%A8kafka/" class="article-date">
+  <time class="dt-published" datetime="2019-11-23T11:31:01.000Z" itemprop="datePublished">2019-11-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      docker启动kafka
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="docker启动kafka"><a href="#docker启动kafka" class="headerlink" title="docker启动kafka"></a>docker启动kafka</h1><p>最近在做微服务项目，准备使用kafka作为MQ。<br>自己以前没接触过kafka，所以自己想搭建一个环境，试用一下。</p>
+<h2 id="使用docker-compose启动kafka"><a href="#使用docker-compose启动kafka" class="headerlink" title="使用docker-compose启动kafka"></a>使用docker-compose启动kafka</h2><p>首先是docker-compose.yml</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&#x27;3&#x27;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">zookeeper:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">wurstmeister/zookeeper</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;2181:2181&quot;</span></span><br><span class="line">  <span class="attr">kafka:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">wurstmeister/kafka</span></span><br><span class="line">    <span class="attr">depends_on:</span> [ <span class="string">zookeeper</span> ]</span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;9092:9092&quot;</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="attr">KAFKA_ADVERTISED_HOST_NAME:</span> <span class="string">本机的外网IP，注意需要开启9092的外网访问防火墙</span></span><br><span class="line">      <span class="attr">KAFKA_CREATE_TOPICS:</span> <span class="string">&quot;test:1:1&quot;</span></span><br><span class="line">      <span class="attr">KAFKA_ZOOKEEPER_CONNECT:</span> <span class="string">zookeeper:2181</span></span><br></pre></td></tr></table></figure>
+<p>其中 KAFKA_ADVERTISED_HOST_NAME 需要开启外网防火墙9092端口，否则在发布信息和监听信息的时候会不停的报警告信息。</p>
+<p>然后启动docker-compose</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+<p>之后可以查看启动结果</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -it kafka_kafka_1 bash</span><br></pre></td></tr></table></figure>
+<p>进入容器后，创建一个topic</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">opt/kafka/bin/kafka-topics.sh --zookeeper zookeeper:2181 --create --replication-factor 1 --partitions 1 --topic kafkatest</span><br></pre></td></tr></table></figure>
+<p>再在这个topic上开启producer，就可以持续输入内容发布消息了。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">opt/kafka/bin/kafka-console-producer.sh --broker-list localhost:9092 --topic kafkatest</span><br></pre></td></tr></table></figure>
+<p>再启动一个ssh，进入容器，启动consumer进行这个topic的监听。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">opt/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic kafkatest --from-beginning</span><br></pre></td></tr></table></figure>
+<p>这样就可以在producer上发布消息，再consumer上监听到了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2019/11/23/docker%E5%90%AF%E5%8A%A8kafka/" data-id="ckl4x2p030000tprc9216gcje" data-title="docker启动kafka" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker-%E5%BE%AE%E6%9C%8D%E5%8A%A1/" rel="tag">docker 微服务</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/07/15/docker%E5%AE%9E%E8%B7%B515%EF%BC%9A%E4%BD%BF%E7%94%A8Docker-Compose%E8%BF%9B%E8%A1%8C%E7%BC%96%E6%8E%92/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">docker实践15：使用Docker Compose进行编排</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker-%E5%BE%AE%E6%9C%8D%E5%8A%A1/" rel="tag">docker 微服务</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/docker/" style="font-size: 20px;">docker</a> <a href="/tags/docker-%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 10px;">docker 微服务</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/11/23/docker%E5%90%AF%E5%8A%A8kafka/">docker启动kafka</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/15/docker%E5%AE%9E%E8%B7%B515%EF%BC%9A%E4%BD%BF%E7%94%A8Docker-Compose%E8%BF%9B%E8%A1%8C%E7%BC%96%E6%8E%92/">docker实践15：使用Docker Compose进行编排</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/13/docker%E5%AE%9E%E8%B7%B514%EF%BC%9A%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%AE%B9%E5%99%A8/">docker实践14：负载均衡容器</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/07/docker%E5%AE%9E%E8%B7%B513%EF%BC%9Adocker%E5%85%83%E6%95%B0%E6%8D%AE%E5%92%8C%E6%A0%87%E7%AD%BE/">docker实践13：docker元数据和标签</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/07/docker%E5%AE%9E%E8%B7%B512%EF%BC%9A%E4%BD%BF%E7%94%A8%E9%87%8D%E5%90%AF%E7%AD%96%E7%95%A5%E4%BF%9D%E6%8C%81%E5%8F%AF%E7%94%A8%E4%BF%9D%E6%8C%81%E5%8F%AF%E7%94%A8/">docker实践12：使用重启策略保持可用</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

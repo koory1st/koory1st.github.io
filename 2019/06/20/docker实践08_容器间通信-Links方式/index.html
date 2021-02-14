@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>docker实践08:容器间通信-Links方式 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="启动redis容器间连接的大多数场景都是应用服务连接数据仓库。创建连接时的关键是容器名字。给被连接的容器起个友好的名字会让连接变得简单。 运行一个redis，命名成：redis-server。这个redis容器就是我们的数据源容器 1docker run -d --name redis-server redis 创建连接启动一个容器并连接一个数据源容器需要使用的语句是：*-link &lt;con">
+<meta property="og:type" content="article">
+<meta property="og:title" content="docker实践08:容器间通信-Links方式">
+<meta property="og:url" content="http://example.com/2019/06/20/docker%E5%AE%9E%E8%B7%B508_%E5%AE%B9%E5%99%A8%E9%97%B4%E9%80%9A%E4%BF%A1-Links%E6%96%B9%E5%BC%8F/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="启动redis容器间连接的大多数场景都是应用服务连接数据仓库。创建连接时的关键是容器名字。给被连接的容器起个友好的名字会让连接变得简单。 运行一个redis，命名成：redis-server。这个redis容器就是我们的数据源容器 1docker run -d --name redis-server redis 创建连接启动一个容器并连接一个数据源容器需要使用的语句是：*-link &lt;con">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2019-06-20T04:26:37.000Z">
+<meta property="article:modified_time" content="2019-07-03T13:25:04.000Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="docker">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-docker实践08_容器间通信-Links方式" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/06/20/docker%E5%AE%9E%E8%B7%B508_%E5%AE%B9%E5%99%A8%E9%97%B4%E9%80%9A%E4%BF%A1-Links%E6%96%B9%E5%BC%8F/" class="article-date">
+  <time class="dt-published" datetime="2019-06-20T04:26:37.000Z" itemprop="datePublished">2019-06-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      docker实践08:容器间通信-Links方式
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="启动redis"><a href="#启动redis" class="headerlink" title="启动redis"></a>启动redis</h1><p>容器间连接的大多数场景都是应用服务连接数据仓库。创建连接时的关键是容器名字。给被连接的容器起个友好的名字会让连接变得简单。</p>
+<p>运行一个redis，命名成：redis-server。这个redis容器就是我们的数据源容器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name redis-server redis</span><br></pre></td></tr></table></figure>
+<h1 id="创建连接"><a href="#创建连接" class="headerlink" title="创建连接"></a>创建连接</h1><p>启动一个容器并连接一个数据源容器需要使用的语句是：*-link &lt;container-name|id&gt;:<alias>*</p>
+<p>别名用来配置应用程序容器是如何调用数据源的配置信息的，当更改到其他环境的时候，就不需要再修改配置信息了。</p>
+<h2 id="连接如何工作"><a href="#连接如何工作" class="headerlink" title="连接如何工作"></a>连接如何工作</h2><p>这个例子中，我们使用Alpine容器连接到redis-server（别名命名成了redis）。</p>
+<p>连接被创建时，docker会做两件事。</p>
+<p>一，docker会基于连接，向容器中创建一些环境变量。根据这些环境变量可以根据给定的名字获取到一些信息，比如端口号，ip地址。</p>
+<p>通过env命令可以输出所有的环境变量。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --link redis-server:redis alpine env</span><br></pre></td></tr></table></figure>
+<p>二，docker会将容器的Host文件更新3个连接到数据源容器的名字，源名字，别名和hash-id。可以使用cat /etc/hosts来查看。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --link redis-server:redis alpine cat &#x2F;etc&#x2F;hosts</span><br></pre></td></tr></table></figure>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><p>连接建立之后，可以ping数据源容器。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --link redis-server:redis alpine ping -c 1 redis</span><br></pre></td></tr></table></figure>
+<h1 id="连接到应用"><a href="#连接到应用" class="headerlink" title="连接到应用"></a>连接到应用</h1><p>连接创建之后，应用容器就可以连接到redis了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 3000:3000 --link redis-server:redis katacoda&#x2F;redis-node-docker-example</span><br></pre></td></tr></table></figure>
+<h1 id="连接到redis-cli"><a href="#连接到redis-cli" class="headerlink" title="连接到redis-cli"></a>连接到redis-cli</h1><p>使用下面的命令可以启动一个redis-cli容器，并通过别名连接到redis服务容器。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it --link redis-server:redis redis redis-cli -h redis</span><br></pre></td></tr></table></figure>
+<p>使用redis的命令查看redis（比如：KEYS *），quit命令用于退出cli。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2019/06/20/docker%E5%AE%9E%E8%B7%B508_%E5%AE%B9%E5%99%A8%E9%97%B4%E9%80%9A%E4%BF%A1-Links%E6%96%B9%E5%BC%8F/" data-id="ckl4x2p0j000ftprc6vsb1j7e" data-title="docker实践08:容器间通信-Links方式" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/" rel="tag">docker</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/06/20/docker%E5%AE%9E%E8%B7%B509_%E5%AE%B9%E5%99%A8%E9%97%B4%E9%80%9A%E4%BF%A1-Networks%E6%96%B9%E5%BC%8F/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          docker实践09:容器间通信-Networks方式
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/06/20/docker%E5%AE%9E%E8%B7%B507_%E6%95%B0%E6%8D%AE%E5%AE%B9%E5%99%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">docker实践07:数据容器</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker-%E5%BE%AE%E6%9C%8D%E5%8A%A1/" rel="tag">docker 微服务</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/docker/" style="font-size: 20px;">docker</a> <a href="/tags/docker-%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 10px;">docker 微服务</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/11/23/docker%E5%90%AF%E5%8A%A8kafka/">docker启动kafka</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/15/docker%E5%AE%9E%E8%B7%B515%EF%BC%9A%E4%BD%BF%E7%94%A8Docker-Compose%E8%BF%9B%E8%A1%8C%E7%BC%96%E6%8E%92/">docker实践15：使用Docker Compose进行编排</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/13/docker%E5%AE%9E%E8%B7%B514%EF%BC%9A%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%AE%B9%E5%99%A8/">docker实践14：负载均衡容器</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/07/docker%E5%AE%9E%E8%B7%B513%EF%BC%9Adocker%E5%85%83%E6%95%B0%E6%8D%AE%E5%92%8C%E6%A0%87%E7%AD%BE/">docker实践13：docker元数据和标签</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/07/docker%E5%AE%9E%E8%B7%B512%EF%BC%9A%E4%BD%BF%E7%94%A8%E9%87%8D%E5%90%AF%E7%AD%96%E7%95%A5%E4%BF%9D%E6%8C%81%E5%8F%AF%E7%94%A8%E4%BF%9D%E6%8C%81%E5%8F%AF%E7%94%A8/">docker实践12：使用重启策略保持可用</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>docker实践14：负载均衡容器 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="NGINX Proxy这个场景中，我们需要运行一个Nginx服务器，当有新的容器被加载的时候，他会自动发现并更新负载均衡配置。很幸运的是，这些已经被nginx-proxy完成了。 nginx-proxy接收HTTP请求，然后基于Host名代理到合适的容器。这个处理对于用户是透明的，不会产生额外的消耗。 属性配置当运行代理容器的时候有3个主要的属性必须要配置。 第一个：使用*-p 80:80*把容器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="docker实践14：负载均衡容器">
+<meta property="og:url" content="http://example.com/2019/07/13/docker%E5%AE%9E%E8%B7%B514%EF%BC%9A%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%AE%B9%E5%99%A8/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="NGINX Proxy这个场景中，我们需要运行一个Nginx服务器，当有新的容器被加载的时候，他会自动发现并更新负载均衡配置。很幸运的是，这些已经被nginx-proxy完成了。 nginx-proxy接收HTTP请求，然后基于Host名代理到合适的容器。这个处理对于用户是透明的，不会产生额外的消耗。 属性配置当运行代理容器的时候有3个主要的属性必须要配置。 第一个：使用*-p 80:80*把容器">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2019-07-13T04:12:19.000Z">
+<meta property="article:modified_time" content="2019-07-14T14:02:38.892Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="docker">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-docker实践14：负载均衡容器" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/07/13/docker%E5%AE%9E%E8%B7%B514%EF%BC%9A%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%AE%B9%E5%99%A8/" class="article-date">
+  <time class="dt-published" datetime="2019-07-13T04:12:19.000Z" itemprop="datePublished">2019-07-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      docker实践14：负载均衡容器
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="NGINX-Proxy"><a href="#NGINX-Proxy" class="headerlink" title="NGINX Proxy"></a>NGINX Proxy</h1><p>这个场景中，我们需要运行一个Nginx服务器，当有新的容器被加载的时候，他会自动发现并更新负载均衡配置。很幸运的是，这些已经被<a target="_blank" rel="noopener" href="http://github.com/jwilder/nginx-proxy">nginx-proxy</a>完成了。</p>
+<p>nginx-proxy接收HTTP请求，然后基于Host名代理到合适的容器。这个处理对于用户是透明的，不会产生额外的消耗。</p>
+<h2 id="属性配置"><a href="#属性配置" class="headerlink" title="属性配置"></a>属性配置</h2><p>当运行代理容器的时候有3个主要的属性必须要配置。</p>
+<p>第一个：使用*-p 80:80*把容器绑定到主机的80端口。这会确保所有的HTTP请求会通过代理处理。</p>
+<p>第二个：挂载<em>docker.sock</em>文件。连接到主机上运行的Docker后台进程(daemon)，并且允许容器通过API的方式访问元数据。ngxin-proxy以此监听事件，并基于容器的IP地址来更新nginx配置。挂载文件与挂载目录的方式相同，*/var/run/docker.sock:/tmp/docker.sock:ro*。指定 <em>:ro</em> 来将文件设置为只读。</p>
+<p>最后一个：设置选项-e DEFAULT*HOST=<domain>*。当请求进入后，并且请求没有指定的host，那么这个容器就是处理请求的容器。这样就可以在一台机器上运行不同的域名的多个web服务了。</p>
+<h2 id="任务"><a href="#任务" class="headerlink" title="任务"></a>任务</h2><p>使用下面的语句来启动nginx-proxy。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 80:80 -e DEFAULT_HOST&#x3D;proxy.example -v &#x2F;var&#x2F;run&#x2F;docker.sock:&#x2F;tmp&#x2F;docker.sock:ro --name nginx jwilder&#x2F;nginx-proxy</span><br></pre></td></tr></table></figure>
+<p>因为使用了DEFAULT_HOST，进来的所有请求都会被定向到指定了Host是proxy.example的容器。</p>
+<h2 id="请求"><a href="#请求" class="headerlink" title="请求"></a>请求</h2><p>使用下面的语句访问web服务器，因为还没有容器，会返回503错误。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http:&#x2F;&#x2F;docker</span><br></pre></td></tr></table></figure>
+<h1 id="单主机"><a href="#单主机" class="headerlink" title="单主机"></a>单主机</h1><p>Nginx-proxy 现在正在监听Docker的事件。这里假设已经建立了一个叫<em>katacoda/docker-http-server</em>的示例web服务器，它会返回机器名。可以用这个测试代理是否正常运行。它内部其实是一个运行在80端口上的PHP和Apache2的应用程序。</p>
+<h2 id="启动容器"><a href="#启动容器" class="headerlink" title="启动容器"></a>启动容器</h2><p>设定容器的环境变量<em>VIRTUAL_HOST</em> ，Nginx-proxy就可以向容器发送请求了。这个变量定义请求来源的host，然后容器就可以处理请求了。</p>
+<p>这个场景中，我们设置和DEFAULT_HOST相同的Host，来处理所有的请求。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 80 -e VIRTUAL_HOST&#x3D;proxy.example katacoda&#x2F;docker-http-server</span><br></pre></td></tr></table></figure>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>Nginx有时需要一些时间来重新加载。</p>
+<p>发送请求，就会发现请求被我们的容器处理了。</p>
+<h1 id="集群"><a href="#集群" class="headerlink" title="集群"></a>集群</h1><p>现在已经建立了一个容器来处理请求。如果再建立一个容器并使用相同的VIRTUAL_HOST，那么nginx-proxy就会配置成round-robin的负载均衡模式。第一个请求由第一个容器处理，第二个请求由第二个容器处理。循环往复。节点数量没有限制。</p>
+<h2 id="任务-1"><a href="#任务-1" class="headerlink" title="任务"></a>任务</h2><p>用之前相同的命令启动另一个容器。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 80 -e VIRTUAL_HOST&#x3D;proxy.example katacoda&#x2F;docker-http-server</span><br></pre></td></tr></table></figure>
+<h2 id="测试-1"><a href="#测试-1" class="headerlink" title="测试"></a>测试</h2><p>如果请求到代理，那么第一次会被第一个容器处理，第二次会被第二个容器处理。</p>
+<h1 id="生成的Nginx配置"><a href="#生成的Nginx配置" class="headerlink" title="生成的Nginx配置"></a>生成的Nginx配置</h1><p><em>nginx-proxy</em>已经自动的创建和配置好了nginx。如果想查看最后生成的配置是什么样的话，可以使用下面的命令查看。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec nginx cat &#x2F;etc&#x2F;nginx&#x2F;conf.d&#x2F;default.conf</span><br></pre></td></tr></table></figure>
+<p>关于它重载配置的其他详细信息可以使用logs命令。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker logs nginx</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2019/07/13/docker%E5%AE%9E%E8%B7%B514%EF%BC%9A%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%AE%B9%E5%99%A8/" data-id="ckl4x2p0s000rtprcdk6he2m0" data-title="docker实践14：负载均衡容器" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/" rel="tag">docker</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/07/15/docker%E5%AE%9E%E8%B7%B515%EF%BC%9A%E4%BD%BF%E7%94%A8Docker-Compose%E8%BF%9B%E8%A1%8C%E7%BC%96%E6%8E%92/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          docker实践15：使用Docker Compose进行编排
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/07/07/docker%E5%AE%9E%E8%B7%B513%EF%BC%9Adocker%E5%85%83%E6%95%B0%E6%8D%AE%E5%92%8C%E6%A0%87%E7%AD%BE/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">docker实践13：docker元数据和标签</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker-%E5%BE%AE%E6%9C%8D%E5%8A%A1/" rel="tag">docker 微服务</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/docker/" style="font-size: 20px;">docker</a> <a href="/tags/docker-%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 10px;">docker 微服务</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/11/23/docker%E5%90%AF%E5%8A%A8kafka/">docker启动kafka</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/15/docker%E5%AE%9E%E8%B7%B515%EF%BC%9A%E4%BD%BF%E7%94%A8Docker-Compose%E8%BF%9B%E8%A1%8C%E7%BC%96%E6%8E%92/">docker实践15：使用Docker Compose进行编排</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/13/docker%E5%AE%9E%E8%B7%B514%EF%BC%9A%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%AE%B9%E5%99%A8/">docker实践14：负载均衡容器</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/07/docker%E5%AE%9E%E8%B7%B513%EF%BC%9Adocker%E5%85%83%E6%95%B0%E6%8D%AE%E5%92%8C%E6%A0%87%E7%AD%BE/">docker实践13：docker元数据和标签</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/07/docker%E5%AE%9E%E8%B7%B512%EF%BC%9A%E4%BD%BF%E7%94%A8%E9%87%8D%E5%90%AF%E7%AD%96%E7%95%A5%E4%BF%9D%E6%8C%81%E5%8F%AF%E7%94%A8%E4%BF%9D%E6%8C%81%E5%8F%AF%E7%94%A8/">docker实践12：使用重启策略保持可用</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

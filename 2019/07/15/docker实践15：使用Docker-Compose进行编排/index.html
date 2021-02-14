@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>docker实践15：使用Docker Compose进行编排 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="定义第一个容器Docker Compose基于docker-compose.yml文件。这个文件定义了集群中要使用的所有容器与配置。用代码的方式定义了如何执行docker run命令。 文件格式用YAML定义。 123container_name:  property: value    - or options 任务：定义第一个容器这个例子中，有一个需要连接Redis的Node.js应用程序。我">
+<meta property="og:type" content="article">
+<meta property="og:title" content="docker实践15：使用Docker Compose进行编排">
+<meta property="og:url" content="http://example.com/2019/07/15/docker%E5%AE%9E%E8%B7%B515%EF%BC%9A%E4%BD%BF%E7%94%A8Docker-Compose%E8%BF%9B%E8%A1%8C%E7%BC%96%E6%8E%92/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="定义第一个容器Docker Compose基于docker-compose.yml文件。这个文件定义了集群中要使用的所有容器与配置。用代码的方式定义了如何执行docker run命令。 文件格式用YAML定义。 123container_name:  property: value    - or options 任务：定义第一个容器这个例子中，有一个需要连接Redis的Node.js应用程序。我">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2019-07-15T12:13:41.000Z">
+<meta property="article:modified_time" content="2019-07-17T15:52:07.773Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="docker">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-docker实践15：使用Docker-Compose进行编排" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/07/15/docker%E5%AE%9E%E8%B7%B515%EF%BC%9A%E4%BD%BF%E7%94%A8Docker-Compose%E8%BF%9B%E8%A1%8C%E7%BC%96%E6%8E%92/" class="article-date">
+  <time class="dt-published" datetime="2019-07-15T12:13:41.000Z" itemprop="datePublished">2019-07-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      docker实践15：使用Docker Compose进行编排
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="定义第一个容器"><a href="#定义第一个容器" class="headerlink" title="定义第一个容器"></a>定义第一个容器</h1><p>Docker Compose基于docker-compose.yml文件。这个文件定义了集群中要使用的所有容器与配置。用代码的方式定义了如何执行docker run命令。</p>
+<p>文件格式用YAML定义。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">container_name:</span></span><br><span class="line">  <span class="attr">property:</span> <span class="string">value</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">or</span> <span class="string">options</span></span><br></pre></td></tr></table></figure>
+<h2 id="任务：定义第一个容器"><a href="#任务：定义第一个容器" class="headerlink" title="任务：定义第一个容器"></a>任务：定义第一个容器</h2><p>这个例子中，有一个需要连接Redis的Node.js应用程序。我们需要定义docker-compose.yml文件来作为起始步骤。</p>
+<p>根据上面的格式，我们要给容器命名成’web’，并且build属性为当前目录，其他属性之后再配置。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">web:</span></span><br><span class="line">  <span class="attr">build:</span> <span class="string">.</span></span><br></pre></td></tr></table></figure>
+<h1 id="定义配置"><a href="#定义配置" class="headerlink" title="定义配置"></a>定义配置</h1><p>Docker Compose 支持所有在docker run里使用的属性。</p>
+<p>要连接2个容器，需要指定links属性并列出需要连接的容器。举个例子，下面的配置会连接到Redis容器。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">web:</span><br><span class="line">  build: .</span><br><span class="line">  links:</span><br><span class="line">    - redis</span><br><span class="line"></span><br><span class="line">  # 其他类似的还有端口号。</span><br><span class="line">  ports:</span><br><span class="line">    - &quot;3000&quot;</span><br><span class="line">    - &quot;8000&quot;</span><br></pre></td></tr></table></figure>
+<p>其他的属性可以去这里<a target="_blank" rel="noopener" href="https://docs.docker.com/compose/compose-file/">https://docs.docker.com/compose/compose-file/</a>查看</p>
+<h1 id="定义第二个容器"><a href="#定义第二个容器" class="headerlink" title="定义第二个容器"></a>定义第二个容器</h1>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2019/07/15/docker%E5%AE%9E%E8%B7%B515%EF%BC%9A%E4%BD%BF%E7%94%A8Docker-Compose%E8%BF%9B%E8%A1%8C%E7%BC%96%E6%8E%92/" data-id="ckl4x2p0u000ttprcbsxph2qu" data-title="docker实践15：使用Docker Compose进行编排" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/" rel="tag">docker</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/11/23/docker%E5%90%AF%E5%8A%A8kafka/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          docker启动kafka
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/07/13/docker%E5%AE%9E%E8%B7%B514%EF%BC%9A%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%AE%B9%E5%99%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">docker实践14：负载均衡容器</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker-%E5%BE%AE%E6%9C%8D%E5%8A%A1/" rel="tag">docker 微服务</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/docker/" style="font-size: 20px;">docker</a> <a href="/tags/docker-%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 10px;">docker 微服务</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/11/23/docker%E5%90%AF%E5%8A%A8kafka/">docker启动kafka</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/15/docker%E5%AE%9E%E8%B7%B515%EF%BC%9A%E4%BD%BF%E7%94%A8Docker-Compose%E8%BF%9B%E8%A1%8C%E7%BC%96%E6%8E%92/">docker实践15：使用Docker Compose进行编排</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/13/docker%E5%AE%9E%E8%B7%B514%EF%BC%9A%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%AE%B9%E5%99%A8/">docker实践14：负载均衡容器</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/07/docker%E5%AE%9E%E8%B7%B513%EF%BC%9Adocker%E5%85%83%E6%95%B0%E6%8D%AE%E5%92%8C%E6%A0%87%E7%AD%BE/">docker实践13：docker元数据和标签</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/07/docker%E5%AE%9E%E8%B7%B512%EF%BC%9A%E4%BD%BF%E7%94%A8%E9%87%8D%E5%90%AF%E7%AD%96%E7%95%A5%E4%BF%9D%E6%8C%81%E5%8F%AF%E7%94%A8%E4%BF%9D%E6%8C%81%E5%8F%AF%E7%94%A8/">docker实践12：使用重启策略保持可用</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
