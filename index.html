@@ -1,99 +1,513 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  
-  
-  <title>Hexo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","version":"8.2.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+  </script>
+<meta property="og:type" content="website">
+<meta property="og:title" content="恶也能多">
 <meta property="og:url" content="http://example.com/index.html">
-<meta property="og:site_name" content="Hexo">
-<meta property="og:locale" content="en_US">
-<meta property="article:author" content="John Doe">
+<meta property="og:site_name" content="恶也能多">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="恶也能多">
 <meta name="twitter:card" content="summary">
-  
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
 
-  
-  
-<link rel="stylesheet" href="/css/style.css">
 
-  
-    
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+<link rel="canonical" href="http://example.com/">
 
-  
-<meta name="generator" content="Hexo 5.3.0"></head>
 
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
-      </h1>
-      
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+<title>恶也能多</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">恶也能多</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
         
-          <a class="main-nav-link" href="/">Home</a>
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">恶也能多</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
         
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
       </div>
     </div>
-  </div>
-</header>
+  </aside>
+  <div class="sidebar-dimmer"></div>
 
-      <div class="outer">
-        <section id="main">
-  
-    <article id="post-docker启动kafka" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2019/11/23/docker%E5%90%AF%E5%8A%A8kafka/" class="article-date">
-  <time class="dt-published" datetime="2019-11-23T11:31:01.000Z" itemprop="datePublished">2019-11-23</time>
-</a>
+
+    </header>
+
     
+  <div class="back-to-top" role="button">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
   </div>
-  <div class="article-inner">
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner index posts-expand">
+
     
-    
-      <header class="article-header">
-        
+
+
+<div class="post-block">
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2019/11/23/docker%E5%90%AF%E5%8A%A8kafka/">docker启动kafka</a>
-    </h1>
   
 
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/02/21/%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E5%9F%BA%E4%BA%8Esnowpack%E7%9A%84svelte%E9%A1%B9%E7%9B%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="恶也能多">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="恶也能多">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/02/21/%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E5%9F%BA%E4%BA%8Esnowpack%E7%9A%84svelte%E9%A1%B9%E7%9B%AE/" class="post-title-link" itemprop="url">快速搭建基于snowpack的svelte项目</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
       
-        <h1 id="docker启动kafka"><a href="#docker启动kafka" class="headerlink" title="docker启动kafka"></a>docker启动kafka</h1><p>最近在做微服务项目，准备使用kafka作为MQ。<br>自己以前没接触过kafka，所以自己想搭建一个环境，试用一下。</p>
+
+      <time title="创建时间：2021-02-21 18:30:38 / 修改时间：19:19:03" itemprop="dateCreated datePublished" datetime="2021-02-21T18:30:38+08:00">2021-02-21</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><h2 id="Svelte"><a href="#Svelte" class="headerlink" title="Svelte"></a>Svelte</h2><p>Svelte是一个令我非常惊喜的前端框架，他的作者是<a target="_blank" rel="noopener" href="https://rollupjs.org/guide/en/">Rollup</a>作者Rich Harris。和React，Vue等框架不同，它基本仅是个编译器，基本没有运行期，它没有使用vdom，所以它自称速度非常的快，效率特别好。</p>
+<h2 id="Snowpack"><a href="#Snowpack" class="headerlink" title="Snowpack"></a>Snowpack</h2><p><a target="_blank" rel="noopener" href="https://www.snowpack.dev/">Snowpack</a>是一个速度非常快的前端应用的构建工具。和以往的webpack，rollup等打包构建工具的最大区别就是他的构建速度，其原因就是因为他去掉了打包阶段。</p>
+<p>上一个官网上描述snowpack原理的图。</p>
+<img src="https://raw.githubusercontent.com/koory1st/pic_for_blog/main/img/20210221184040.png" style="zoom:67%;" />
+
+<h1 id="搭建工程前准备"><a href="#搭建工程前准备" class="headerlink" title="搭建工程前准备"></a>搭建工程前准备</h1><p>仅需要node和能上网。</p>
+<h1 id="开始搭建"><a href="#开始搭建" class="headerlink" title="开始搭建"></a>开始搭建</h1><p>我们直接使用snowpack预先建好的模板工程。</p>
+<p>先下载Snowpack的<a target="_blank" rel="noopener" href="https://github.com/snowpackjs/snowpack">源码</a>到本地。</p>
+<p>解压，然后进入create-snowpack-app目录中，可以看到有好多的template文件夹。</p>
+<p><img src="https://raw.githubusercontent.com/koory1st/pic_for_blog/main/img/20210221190638.png" alt="image-20210221190638382"></p>
+<p>拷贝任何一个想运行的框架文件夹，这里咱们选择app-template-svelte-typescript这个。放到任意的本地位置。</p>
+<p>用命令行工具运行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
+<p>再运行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run start</span><br></pre></td></tr></table></figure>
+<p>控制台会显示</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">snowpack</span><br><span class="line"></span><br><span class="line">  http://localhost:8080 • http://192.168.31.89:8080</span><br><span class="line">  Server started <span class="keyword">in</span> 32ms.</span><br><span class="line"></span><br><span class="line">▼ @snowpack/plugin-typescript</span><br><span class="line"></span><br><span class="line">  下午7:17:37 - Starting compilation <span class="keyword">in</span> watch mode...</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  下午7:17:41 - Found 0 errors. Watching <span class="keyword">for</span> file changes.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>并且会自动弹出浏览器页面</p>
+<p><img src="https://raw.githubusercontent.com/koory1st/pic_for_blog/main/img/20210221191844.png" alt="image-20210221191844012"></p>
+<p>这样就代表搭建成功了。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/02/14/springboot%E6%80%BB%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="恶也能多">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="恶也能多">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/02/14/springboot%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">springboot总结</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-02-14 20:56:58" itemprop="dateCreated datePublished" datetime="2021-02-14T20:56:58+08:00">2021-02-14</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-02-17 15:09:58" itemprop="dateModified" datetime="2021-02-17T15:09:58+08:00">2021-02-17</time>
+      </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="初始化项目"><a href="#初始化项目" class="headerlink" title="初始化项目"></a>初始化项目</h1><p><a target="_blank" rel="noopener" href="https://start.spring.io/">https://start.spring.io/</a></p>
+<h1 id="配置启动"><a href="#配置启动" class="headerlink" title="配置启动"></a>配置启动</h1><h2 id="获取context"><a href="#获取context" class="headerlink" title="获取context"></a>获取context</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">	ApplicationContext context = SpringApplication.run(SpringDemoApplication.class, args);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="另外的启动写法，并做一些启动设置"><a href="#另外的启动写法，并做一些启动设置" class="headerlink" title="另外的启动写法，并做一些启动设置"></a>另外的启动写法，并做一些启动设置</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"><span class="comment">//		ApplicationContext context = SpringApplication.run(SpringDemoApplication.class, args);</span></span><br><span class="line">		SpringApplication app = <span class="keyword">new</span> SpringApplication(SpringDemoApplication.class);</span><br><span class="line">		app.setBannerMode(Banner.Mode.OFF);</span><br><span class="line">		ApplicationContext context = app.run(args);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="替换Logo"><a href="#替换Logo" class="headerlink" title="替换Logo"></a>替换Logo</h2><p>resources/banner.txt</p>
+<h2 id="配置文件中指定启动的类"><a href="#配置文件中指定启动的类" class="headerlink" title="配置文件中指定启动的类"></a>配置文件中指定启动的类</h2><figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">spring.main.sources</span>=<span class="string">com.koory1st.spring_demo.SpringDemoApplication</span></span><br></pre></td></tr></table></figure>
+<h2 id="启动后回调"><a href="#启动后回调" class="headerlink" title="启动后回调"></a>启动后回调</h2><ul>
+<li>CommandLineRunner</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpringDemoApplication</span> <span class="keyword">implements</span> <span class="title">CommandLineRunner</span> </span>&#123;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">(String... args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="配置启动类型"><a href="#配置启动类型" class="headerlink" title="配置启动类型"></a>配置启动类型</h2><p>可配置的值：none, web,</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">spring.main.web-application-type</span>=<span class="string">servlet</span></span><br></pre></td></tr></table></figure>
+<h2 id="web工程启动顺序"><a href="#web工程启动顺序" class="headerlink" title="web工程启动顺序"></a>web工程启动顺序</h2><ol>
+<li>启动ioc容器</li>
+<li>启动内嵌的tomcat</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/12/26/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E7%89%88%E7%BD%91%E9%A1%B5%E8%81%8A%E5%A4%A9%E5%AE%A4-rocket-chat/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="恶也能多">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="恶也能多">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2019/12/26/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E7%89%88%E7%BD%91%E9%A1%B5%E8%81%8A%E5%A4%A9%E5%AE%A4-rocket-chat/" class="post-title-link" itemprop="url">搭建个人版网页聊天室 rocket chat</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-12-26 19:53:16" itemprop="dateCreated datePublished" datetime="2019-12-26T19:53:16+08:00">2019-12-26</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-02-14 17:30:02" itemprop="dateModified" datetime="2021-02-14T17:30:02+08:00">2021-02-14</time>
+      </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>今天尝试了一下使用类slack的网页聊天服务:rocket chat.感觉搭建起来还是挺方便的.当然其中也遇到一些坑,所以把最后成功的方式记录下来.</p>
+<p>由于rocket chat使用了mongo做存储,所以也需要启动一个mongo的容器.</p>
+<h1 id="docker设置国内代理"><a href="#docker设置国内代理" class="headerlink" title="docker设置国内代理"></a>docker设置国内代理</h1><p>参考:<a target="_blank" rel="noopener" href="http://einverne.github.io/post/2018/03/docker-mirror.html">http://einverne.github.io/post/2018/03/docker-mirror.html</a></p>
+<h2 id="修改Docker的配置文件-etc-docker-daemon-json"><a href="#修改Docker的配置文件-etc-docker-daemon-json" class="headerlink" title="修改Docker的配置文件: /etc/docker/daemon.json"></a>修改Docker的配置文件: /etc/docker/daemon.json</h2><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;registry-mirrors&quot;</span>: [</span><br><span class="line">        <span class="string">&quot;加速地址&quot;</span></span><br><span class="line">    ],</span><br><span class="line">    <span class="attr">&quot;insecure-registries&quot;</span>: []</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="加速地址"><a href="#加速地址" class="headerlink" title="加速地址"></a>加速地址</h2><ol>
+<li><p><a target="_blank" rel="noopener" href="http://6ce28dce.m.daocloud.io/">http://6ce28dce.m.daocloud.io</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://registry.docker-cn.com/">https://registry.docker-cn.com</a></p>
+</li>
+</ol>
+<h2 id="重启docker"><a href="#重启docker" class="headerlink" title="重启docker"></a>重启docker</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart docker</span><br></pre></td></tr></table></figure>
+<h1 id="启动-mongo-容器"><a href="#启动-mongo-容器" class="headerlink" title="启动 mongo 容器"></a>启动 mongo 容器</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name my-mongo -p 27017:27017 -v /home/root/mongo-data:/etc/mongo --rm -d mongo:4.0 --smallfiles --replSet rs0 --oplogSize 128</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -ti my-mongo mongo --<span class="built_in">eval</span> <span class="string">&quot;printjson(rs.initiate())&quot;</span></span><br></pre></td></tr></table></figure>
+<h1 id="启动-rocket-chat-容器"><a href="#启动-rocket-chat-容器" class="headerlink" title="启动 rocket.chat 容器"></a>启动 rocket.chat 容器</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name rocketchat -p 3000:3000 --link my-mongo:db --env MONGO_OPLOG_URL=mongodb://my-mongo:27017/<span class="built_in">local</span> -d --rm rocket.chat</span><br></pre></td></tr></table></figure>
+<p>之后,就可以使用<a href="http://ip:port的方式开始使用rocket">http://ip:port的方式开始使用rocket</a> chat了.</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/11/23/docker%E5%90%AF%E5%8A%A8kafka/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="恶也能多">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="恶也能多">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2019/11/23/docker%E5%90%AF%E5%8A%A8kafka/" class="post-title-link" itemprop="url">docker启动kafka</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2019-11-23 19:31:01 / 修改时间：20:26:09" itemprop="dateCreated datePublished" datetime="2019-11-23T19:31:01+08:00">2019-11-23</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="docker启动kafka"><a href="#docker启动kafka" class="headerlink" title="docker启动kafka"></a>docker启动kafka</h1><p>最近在做微服务项目，准备使用kafka作为MQ。<br>自己以前没接触过kafka，所以自己想搭建一个环境，试用一下。</p>
 <h2 id="使用docker-compose启动kafka"><a href="#使用docker-compose启动kafka" class="headerlink" title="使用docker-compose启动kafka"></a>使用docker-compose启动kafka</h2><p>首先是docker-compose.yml</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&#x27;3&#x27;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">zookeeper:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">wurstmeister/zookeeper</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;2181:2181&quot;</span></span><br><span class="line">  <span class="attr">kafka:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">wurstmeister/kafka</span></span><br><span class="line">    <span class="attr">depends_on:</span> [ <span class="string">zookeeper</span> ]</span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;9092:9092&quot;</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="attr">KAFKA_ADVERTISED_HOST_NAME:</span> <span class="string">本机的外网IP，注意需要开启9092的外网访问防火墙</span></span><br><span class="line">      <span class="attr">KAFKA_CREATE_TOPICS:</span> <span class="string">&quot;test:1:1&quot;</span></span><br><span class="line">      <span class="attr">KAFKA_ZOOKEEPER_CONNECT:</span> <span class="string">zookeeper:2181</span></span><br></pre></td></tr></table></figure>
 <p>其中 KAFKA_ADVERTISED_HOST_NAME 需要开启外网防火墙9092端口，否则在发布信息和监听信息的时候会不停的报警告信息。</p>
@@ -111,44 +525,74 @@
 
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2019/11/23/docker%E5%90%AF%E5%8A%A8kafka/" data-id="ckl4x2p030000tprc9216gcje" data-title="docker启动kafka" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker-%E5%BE%AE%E6%9C%8D%E5%8A%A1/" rel="tag">docker 微服务</a></li></ul>
 
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
     </footer>
-  </div>
-  
-</article>
+  </article>
+</div>
 
 
 
-  
-    <article id="post-docker实践15：使用Docker-Compose进行编排" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2019/07/15/docker%E5%AE%9E%E8%B7%B515%EF%BC%9A%E4%BD%BF%E7%94%A8Docker-Compose%E8%BF%9B%E8%A1%8C%E7%BC%96%E6%8E%92/" class="article-date">
-  <time class="dt-published" datetime="2019-07-15T12:13:41.000Z" itemprop="datePublished">2019-07-15</time>
-</a>
+
     
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+
+
+<div class="post-block">
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2019/07/15/docker%E5%AE%9E%E8%B7%B515%EF%BC%9A%E4%BD%BF%E7%94%A8Docker-Compose%E8%BF%9B%E8%A1%8C%E7%BC%96%E6%8E%92/">docker实践15：使用Docker Compose进行编排</a>
-    </h1>
   
 
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/07/15/docker%E5%AE%9E%E8%B7%B515%EF%BC%9A%E4%BD%BF%E7%94%A8Docker-Compose%E8%BF%9B%E8%A1%8C%E7%BC%96%E6%8E%92/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="恶也能多">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="恶也能多">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2019/07/15/docker%E5%AE%9E%E8%B7%B515%EF%BC%9A%E4%BD%BF%E7%94%A8Docker-Compose%E8%BF%9B%E8%A1%8C%E7%BC%96%E6%8E%92/" class="post-title-link" itemprop="url">docker实践15：使用Docker Compose进行编排</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-07-15 20:13:41" itemprop="dateCreated datePublished" datetime="2019-07-15T20:13:41+08:00">2019-07-15</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2019-07-17 23:52:07" itemprop="dateModified" datetime="2019-07-17T23:52:07+08:00">2019-07-17</time>
+      </span>
+
+  
+</div>
+
+        </div>
       </header>
+
     
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="定义第一个容器"><a href="#定义第一个容器" class="headerlink" title="定义第一个容器"></a>定义第一个容器</h1><p>Docker Compose基于docker-compose.yml文件。这个文件定义了集群中要使用的所有容器与配置。用代码的方式定义了如何执行docker run命令。</p>
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="定义第一个容器"><a href="#定义第一个容器" class="headerlink" title="定义第一个容器"></a>定义第一个容器</h1><p>Docker Compose基于docker-compose.yml文件。这个文件定义了集群中要使用的所有容器与配置。用代码的方式定义了如何执行docker run命令。</p>
 <p>文件格式用YAML定义。</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">container_name:</span></span><br><span class="line">  <span class="attr">property:</span> <span class="string">value</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">or</span> <span class="string">options</span></span><br></pre></td></tr></table></figure>
 <h2 id="任务：定义第一个容器"><a href="#任务：定义第一个容器" class="headerlink" title="任务：定义第一个容器"></a>任务：定义第一个容器</h2><p>这个例子中，有一个需要连接Redis的Node.js应用程序。我们需要定义docker-compose.yml文件来作为起始步骤。</p>
@@ -161,44 +605,74 @@
 <h1 id="定义第二个容器"><a href="#定义第二个容器" class="headerlink" title="定义第二个容器"></a>定义第二个容器</h1>
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2019/07/15/docker%E5%AE%9E%E8%B7%B515%EF%BC%9A%E4%BD%BF%E7%94%A8Docker-Compose%E8%BF%9B%E8%A1%8C%E7%BC%96%E6%8E%92/" data-id="ckl4x2p0u000ttprcbsxph2qu" data-title="docker实践15：使用Docker Compose进行编排" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/" rel="tag">docker</a></li></ul>
 
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
     </footer>
-  </div>
-  
-</article>
+  </article>
+</div>
 
 
 
-  
-    <article id="post-docker实践14：负载均衡容器" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2019/07/13/docker%E5%AE%9E%E8%B7%B514%EF%BC%9A%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%AE%B9%E5%99%A8/" class="article-date">
-  <time class="dt-published" datetime="2019-07-13T04:12:19.000Z" itemprop="datePublished">2019-07-13</time>
-</a>
+
     
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+
+
+<div class="post-block">
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2019/07/13/docker%E5%AE%9E%E8%B7%B514%EF%BC%9A%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%AE%B9%E5%99%A8/">docker实践14：负载均衡容器</a>
-    </h1>
   
 
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/07/13/docker%E5%AE%9E%E8%B7%B514%EF%BC%9A%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%AE%B9%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="恶也能多">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="恶也能多">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2019/07/13/docker%E5%AE%9E%E8%B7%B514%EF%BC%9A%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%AE%B9%E5%99%A8/" class="post-title-link" itemprop="url">docker实践14：负载均衡容器</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-07-13 12:12:19" itemprop="dateCreated datePublished" datetime="2019-07-13T12:12:19+08:00">2019-07-13</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2019-07-14 22:02:38" itemprop="dateModified" datetime="2019-07-14T22:02:38+08:00">2019-07-14</time>
+      </span>
+
+  
+</div>
+
+        </div>
       </header>
+
     
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="NGINX-Proxy"><a href="#NGINX-Proxy" class="headerlink" title="NGINX Proxy"></a>NGINX Proxy</h1><p>这个场景中，我们需要运行一个Nginx服务器，当有新的容器被加载的时候，他会自动发现并更新负载均衡配置。很幸运的是，这些已经被<a target="_blank" rel="noopener" href="http://github.com/jwilder/nginx-proxy">nginx-proxy</a>完成了。</p>
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="NGINX-Proxy"><a href="#NGINX-Proxy" class="headerlink" title="NGINX Proxy"></a>NGINX Proxy</h1><p>这个场景中，我们需要运行一个Nginx服务器，当有新的容器被加载的时候，他会自动发现并更新负载均衡配置。很幸运的是，这些已经被<a target="_blank" rel="noopener" href="http://github.com/jwilder/nginx-proxy">nginx-proxy</a>完成了。</p>
 <p>nginx-proxy接收HTTP请求，然后基于Host名代理到合适的容器。这个处理对于用户是透明的，不会产生额外的消耗。</p>
 <h2 id="属性配置"><a href="#属性配置" class="headerlink" title="属性配置"></a>属性配置</h2><p>当运行代理容器的时候有3个主要的属性必须要配置。</p>
 <p>第一个：使用*-p 80:80*把容器绑定到主机的80端口。这会确保所有的HTTP请求会通过代理处理。</p>
@@ -226,44 +700,74 @@
 
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2019/07/13/docker%E5%AE%9E%E8%B7%B514%EF%BC%9A%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%AE%B9%E5%99%A8/" data-id="ckl4x2p0s000rtprcdk6he2m0" data-title="docker实践14：负载均衡容器" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/" rel="tag">docker</a></li></ul>
 
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
     </footer>
-  </div>
-  
-</article>
+  </article>
+</div>
 
 
 
-  
-    <article id="post-docker实践13：docker元数据和标签" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2019/07/07/docker%E5%AE%9E%E8%B7%B513%EF%BC%9Adocker%E5%85%83%E6%95%B0%E6%8D%AE%E5%92%8C%E6%A0%87%E7%AD%BE/" class="article-date">
-  <time class="dt-published" datetime="2019-07-07T14:54:12.000Z" itemprop="datePublished">2019-07-07</time>
-</a>
+
     
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+
+
+<div class="post-block">
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2019/07/07/docker%E5%AE%9E%E8%B7%B513%EF%BC%9Adocker%E5%85%83%E6%95%B0%E6%8D%AE%E5%92%8C%E6%A0%87%E7%AD%BE/">docker实践13：docker元数据和标签</a>
-    </h1>
   
 
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/07/07/docker%E5%AE%9E%E8%B7%B513%EF%BC%9Adocker%E5%85%83%E6%95%B0%E6%8D%AE%E5%92%8C%E6%A0%87%E7%AD%BE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="恶也能多">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="恶也能多">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2019/07/07/docker%E5%AE%9E%E8%B7%B513%EF%BC%9Adocker%E5%85%83%E6%95%B0%E6%8D%AE%E5%92%8C%E6%A0%87%E7%AD%BE/" class="post-title-link" itemprop="url">docker实践13：docker元数据和标签</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-07-07 22:54:12" itemprop="dateCreated datePublished" datetime="2019-07-07T22:54:12+08:00">2019-07-07</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2019-07-13 12:04:41" itemprop="dateModified" datetime="2019-07-13T12:04:41+08:00">2019-07-13</time>
+      </span>
+
+  
+</div>
+
+        </div>
       </header>
+
     
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="Docker容器"><a href="#Docker容器" class="headerlink" title="Docker容器"></a>Docker容器</h1><p>当容器以docker run方式运行时，可以给容器添加标签。一个容器在任何一个时刻可以有多个标签。</p>
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="Docker容器"><a href="#Docker容器" class="headerlink" title="Docker容器"></a>Docker容器</h1><p>当容器以docker run方式运行时，可以给容器添加标签。一个容器在任何一个时刻可以有多个标签。</p>
 <p>注意这个例子，我们是在CLI里使用标签，而不是使用自动化工具，所以标签并没有使用DNS标记格式。</p>
 <h2 id="单标签"><a href="#单标签" class="headerlink" title="单标签"></a>单标签</h2><p>添加单标签需要使用选项<em>l =<value></em> ，下面的例子会给容器加一个user标签并带有一个ID，这样就可以让我们在所有容器中查找指定的user。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -l user&#x3D;12345 -d redis</span><br></pre></td></tr></table></figure>
@@ -300,44 +804,68 @@
 
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2019/07/07/docker%E5%AE%9E%E8%B7%B513%EF%BC%9Adocker%E5%85%83%E6%95%B0%E6%8D%AE%E5%92%8C%E6%A0%87%E7%AD%BE/" data-id="ckl4x2p0r000ptprcd7h67atb" data-title="docker实践13：docker元数据和标签" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/" rel="tag">docker</a></li></ul>
 
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
     </footer>
-  </div>
-  
-</article>
+  </article>
+</div>
 
 
 
+
+    
+
+
+<div class="post-block">
   
-    <article id="post-docker实践12：使用重启策略保持可用保持可用" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2019/07/07/docker%E5%AE%9E%E8%B7%B512%EF%BC%9A%E4%BD%BF%E7%94%A8%E9%87%8D%E5%90%AF%E7%AD%96%E7%95%A5%E4%BF%9D%E6%8C%81%E5%8F%AF%E7%94%A8%E4%BF%9D%E6%8C%81%E5%8F%AF%E7%94%A8/" class="article-date">
-  <time class="dt-published" datetime="2019-07-07T12:14:22.000Z" itemprop="datePublished">2019-07-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2019/07/07/docker%E5%AE%9E%E8%B7%B512%EF%BC%9A%E4%BD%BF%E7%94%A8%E9%87%8D%E5%90%AF%E7%AD%96%E7%95%A5%E4%BF%9D%E6%8C%81%E5%8F%AF%E7%94%A8%E4%BF%9D%E6%8C%81%E5%8F%AF%E7%94%A8/">docker实践12：使用重启策略保持可用</a>
-    </h1>
   
 
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/07/07/docker%E5%AE%9E%E8%B7%B512%EF%BC%9A%E4%BD%BF%E7%94%A8%E9%87%8D%E5%90%AF%E7%AD%96%E7%95%A5%E4%BF%9D%E6%8C%81%E5%8F%AF%E7%94%A8%E4%BF%9D%E6%8C%81%E5%8F%AF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="恶也能多">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="恶也能多">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2019/07/07/docker%E5%AE%9E%E8%B7%B512%EF%BC%9A%E4%BD%BF%E7%94%A8%E9%87%8D%E5%90%AF%E7%AD%96%E7%95%A5%E4%BF%9D%E6%8C%81%E5%8F%AF%E7%94%A8%E4%BF%9D%E6%8C%81%E5%8F%AF%E7%94%A8/" class="post-title-link" itemprop="url">docker实践12：使用重启策略保持可用</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
       
-        <h1 id="失败时停止"><a href="#失败时停止" class="headerlink" title="失败时停止"></a>失败时停止</h1><p>Docker将容器的非零退出算作容器崩溃。默认情况，容器崩溃后会一直保持停止状态。</p>
+
+      <time title="创建时间：2019-07-07 20:14:22 / 修改时间：20:40:10" itemprop="dateCreated datePublished" datetime="2019-07-07T20:14:22+08:00">2019-07-07</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="失败时停止"><a href="#失败时停止" class="headerlink" title="失败时停止"></a>失败时停止</h1><p>Docker将容器的非零退出算作容器崩溃。默认情况，容器崩溃后会一直保持停止状态。</p>
 <p>我们这里有个特殊的容器，会发送一条消息，然后退出返回1。这就可以模拟一个容器崩溃。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name restart-default scrapbook&#x2F;docker-restart-example</span><br></pre></td></tr></table></figure>
 <p>如果列出所有的容器，包括停止的，就会看到这个停用的容器。</p>
@@ -357,44 +885,68 @@
 
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2019/07/07/docker%E5%AE%9E%E8%B7%B512%EF%BC%9A%E4%BD%BF%E7%94%A8%E9%87%8D%E5%90%AF%E7%AD%96%E7%95%A5%E4%BF%9D%E6%8C%81%E5%8F%AF%E7%94%A8%E4%BF%9D%E6%8C%81%E5%8F%AF%E7%94%A8/" data-id="ckl4x2p0q000ntprc8w5t5m86" data-title="docker实践12：使用重启策略保持可用" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/" rel="tag">docker</a></li></ul>
 
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
     </footer>
-  </div>
-  
-</article>
+  </article>
+</div>
 
 
 
+
+    
+
+
+<div class="post-block">
   
-    <article id="post-docker实践11：管理Log文件" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2019/07/04/docker%E5%AE%9E%E8%B7%B511%EF%BC%9A%E7%AE%A1%E7%90%86Log%E6%96%87%E4%BB%B6/" class="article-date">
-  <time class="dt-published" datetime="2019-07-04T13:51:42.000Z" itemprop="datePublished">2019-07-04</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2019/07/04/docker%E5%AE%9E%E8%B7%B511%EF%BC%9A%E7%AE%A1%E7%90%86Log%E6%96%87%E4%BB%B6/">docker实践11：管理Log文件</a>
-    </h1>
   
 
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/07/04/docker%E5%AE%9E%E8%B7%B511%EF%BC%9A%E7%AE%A1%E7%90%86Log%E6%96%87%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="恶也能多">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="恶也能多">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2019/07/04/docker%E5%AE%9E%E8%B7%B511%EF%BC%9A%E7%AE%A1%E7%90%86Log%E6%96%87%E4%BB%B6/" class="post-title-link" itemprop="url">docker实践11：管理Log文件</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
       
-        <h1 id="Docker-Logs"><a href="#Docker-Logs" class="headerlink" title="Docker Logs"></a>Docker Logs</h1><p>一旦启动容器，Docker会记录进程的标准输出和标准错误，并且使用Docker客户端可以访问。</p>
+
+      <time title="创建时间：2019-07-04 21:51:42 / 修改时间：22:38:58" itemprop="dateCreated datePublished" datetime="2019-07-04T21:51:42+08:00">2019-07-04</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="Docker-Logs"><a href="#Docker-Logs" class="headerlink" title="Docker Logs"></a>Docker Logs</h1><p>一旦启动容器，Docker会记录进程的标准输出和标准错误，并且使用Docker客户端可以访问。</p>
 <p>假设后台有一个Redis实例容器在运行，容器名是<em>redis-server</em>。使用Docker客户端，可以使用如下语句来访问标准输出和标准错误。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker logs redis-server</span><br></pre></td></tr></table></figure>
 <h1 id="SysLog"><a href="#SysLog" class="headerlink" title="SysLog"></a>SysLog</h1><p>Docker默认使用json格式的log文件存储在主机上。这会在硬盘上存储大量的文件，可以把Log文件存储到其他的目标位置。</p>
@@ -414,44 +966,74 @@
 
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2019/07/04/docker%E5%AE%9E%E8%B7%B511%EF%BC%9A%E7%AE%A1%E7%90%86Log%E6%96%87%E4%BB%B6/" data-id="ckl4x2p0n000ltprce4ka4kjp" data-title="docker实践11：管理Log文件" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/" rel="tag">docker</a></li></ul>
 
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
     </footer>
-  </div>
-  
-</article>
+  </article>
+</div>
 
 
 
-  
-    <article id="post-docker实践10：使用Volumes持久化数据" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2019/07/03/docker%E5%AE%9E%E8%B7%B510%EF%BC%9A%E4%BD%BF%E7%94%A8Volumes%E6%8C%81%E4%B9%85%E5%8C%96%E6%95%B0%E6%8D%AE/" class="article-date">
-  <time class="dt-published" datetime="2019-07-03T14:21:38.000Z" itemprop="datePublished">2019-07-03</time>
-</a>
+
     
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+
+
+<div class="post-block">
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2019/07/03/docker%E5%AE%9E%E8%B7%B510%EF%BC%9A%E4%BD%BF%E7%94%A8Volumes%E6%8C%81%E4%B9%85%E5%8C%96%E6%95%B0%E6%8D%AE/">docker实践10：使用Volumes持久化数据</a>
-    </h1>
   
 
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/07/03/docker%E5%AE%9E%E8%B7%B510%EF%BC%9A%E4%BD%BF%E7%94%A8Volumes%E6%8C%81%E4%B9%85%E5%8C%96%E6%95%B0%E6%8D%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="恶也能多">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="恶也能多">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2019/07/03/docker%E5%AE%9E%E8%B7%B510%EF%BC%9A%E4%BD%BF%E7%94%A8Volumes%E6%8C%81%E4%B9%85%E5%8C%96%E6%95%B0%E6%8D%AE/" class="post-title-link" itemprop="url">docker实践10：使用Volumes持久化数据</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-07-03 22:21:38" itemprop="dateCreated datePublished" datetime="2019-07-03T22:21:38+08:00">2019-07-03</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2019-07-04 21:49:43" itemprop="dateModified" datetime="2019-07-04T21:49:43+08:00">2019-07-04</time>
+      </span>
+
+  
+</div>
+
+        </div>
       </header>
+
     
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="数据卷"><a href="#数据卷" class="headerlink" title="数据卷"></a>数据卷</h1><p>宿主机的*/docker/redis-data*目录映射到容器的 <em>/data</em>目录</p>
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="数据卷"><a href="#数据卷" class="headerlink" title="数据卷"></a>数据卷</h1><p>宿主机的*/docker/redis-data*目录映射到容器的 <em>/data</em>目录</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker run  -v &#x2F;docker&#x2F;redis-data:&#x2F;data \</span><br><span class="line">  --name r1 -d redis \</span><br><span class="line">  redis-server --appendonly yes</span><br></pre></td></tr></table></figure>
 
 
@@ -475,326 +1057,84 @@
 
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2019/07/03/docker%E5%AE%9E%E8%B7%B510%EF%BC%9A%E4%BD%BF%E7%94%A8Volumes%E6%8C%81%E4%B9%85%E5%8C%96%E6%95%B0%E6%8D%AE/" data-id="ckl4x2p0m000jtprc9bqg2nha" data-title="docker实践10：使用Volumes持久化数据" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/" rel="tag">docker</a></li></ul>
 
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
     </footer>
-  </div>
-  
-</article>
+  </article>
+</div>
 
 
 
-  
-    <article id="post-docker实践09_容器间通信-Networks方式" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2019/06/20/docker%E5%AE%9E%E8%B7%B509_%E5%AE%B9%E5%99%A8%E9%97%B4%E9%80%9A%E4%BF%A1-Networks%E6%96%B9%E5%BC%8F/" class="article-date">
-  <time class="dt-published" datetime="2019-06-20T06:26:37.000Z" itemprop="datePublished">2019-06-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2019/06/20/docker%E5%AE%9E%E8%B7%B509_%E5%AE%B9%E5%99%A8%E9%97%B4%E9%80%9A%E4%BF%A1-Networks%E6%96%B9%E5%BC%8F/">docker实践09:容器间通信-Networks方式</a>
-    </h1>
-  
 
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="创建network"><a href="#创建network" class="headerlink" title="创建network"></a>创建network</h1><p>首先要使用cli创建一个network，它可以连接上多个容器，使容器可以彼此相互发现。</p>
-<p>这个例子中，我们以创建一个<em>backend-network</em>开始，所有连接到后端的容器都在这个网络上。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker network create backend-network</span><br></pre></td></tr></table></figure>
-<p>使用*-net*属性连接到网络</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name&#x3D;redis --net&#x3D;backend-network redis</span><br></pre></td></tr></table></figure>
-<h1 id="Network通信"><a href="#Network通信" class="headerlink" title="Network通信"></a>Network通信</h1><p>与links的通信方式不同，docker的network的行为类似于传统的网络连接-节点可以连接或者卸下连接。</p>
-<p>首先你会发现docker不再给容器创建环境变量，不再更新hosts文件。用下面的两个语句可以验证。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --net&#x3D;backend-network alpine env</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --net&#x3D;backend-network alpine cat &#x2F;etc&#x2F;hosts</span><br></pre></td></tr></table></figure>
-<p>取而代之的是，容器间通信会通过docker内嵌的DNS服务器。这个dns服务器会被分配到各个容器，IP是127.0.0.11，配置到/etc/resolv.conf文件中。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --net&#x3D;backend-network alpine cat &#x2F;etc&#x2F;resolv.conf</span><br></pre></td></tr></table></figure>
-<p>当容器试图使用通用的名字（例如：Redis）去连接其他容器时，DNS服务器会返回对应容器的IP地址。这个例子里，Redis的全名是<em>redis.backend-network</em></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --net&#x3D;backend-network alpine ping -c1 redis</span><br></pre></td></tr></table></figure>
-<h1 id="连接两个容器"><a href="#连接两个容器" class="headerlink" title="连接两个容器"></a>连接两个容器</h1><p>docker支持容器同时连接多个网络。</p>
-<p>举个例子，让我们再创建一个带有Nodejs的网络，然后与已经建立好的Redis实例通信。</p>
-<p>首先用相同的方式建立网络</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker network create frontend-network</span><br></pre></td></tr></table></figure>
-<p>然后使用<em>connect</em>命令，可以把已经存在的实例连接到网络上。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker network connect frontend-network redis</span><br></pre></td></tr></table></figure>
-<p>当我们启动这个web服务器，并且连接到网络的时候，它就可以与Redis实例通信了。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 3000:3000 --net&#x3D;frontend-network katacoda&#x2F;redis-node-docker-example</span><br></pre></td></tr></table></figure>
-<h1 id="创建别名"><a href="#创建别名" class="headerlink" title="创建别名"></a>创建别名</h1><p>在网络模式下Links方式仍然被支持，并提供了一种方式给容器定义别名。这样会给容器一个额外的Dns入口名字和被发现的方式。When using –link the embedded DNS will guarantee that localised lookup result only on that container where the –link is used.</p>
-<p>另一种方式是连接到网络的时候设置别名。</p>
-<p>下面的例子就是把Redis实例连接到网络时使用别名db。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker network create frontend-network2</span><br><span class="line">docker network connect --alias db frontend-network2 redis</span><br></pre></td></tr></table></figure>
-<p>当容器试图使用db这个名字请求服务时，会被提供Redis容器的IP。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --net&#x3D;frontend-network2 alpine ping -c1 db</span><br></pre></td></tr></table></figure>
-<h1 id="容器断线"><a href="#容器断线" class="headerlink" title="容器断线"></a>容器断线</h1><p>网络建立好之后，可以使用CLI来查询详细信息。</p>
-<p>下面的语句可以列出宿主机上所有的网络。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker network ls</span><br></pre></td></tr></table></figure>
-<p>可以查询网络详细，来看有哪些容器连接在这个网络上，并查看IP。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker network inspect frontend-network</span><br></pre></td></tr></table></figure>
-<p>下面的语句可以把redis容器从网络<em>frontend-network</em>中断开。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker network disconnect frontend-network redis</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2019/06/20/docker%E5%AE%9E%E8%B7%B509_%E5%AE%B9%E5%99%A8%E9%97%B4%E9%80%9A%E4%BF%A1-Networks%E6%96%B9%E5%BC%8F/" data-id="ckl4x2p0l000htprcexk26ukz" data-title="docker实践09:容器间通信-Networks方式" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/" rel="tag">docker</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-docker实践08_容器间通信-Links方式" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2019/06/20/docker%E5%AE%9E%E8%B7%B508_%E5%AE%B9%E5%99%A8%E9%97%B4%E9%80%9A%E4%BF%A1-Links%E6%96%B9%E5%BC%8F/" class="article-date">
-  <time class="dt-published" datetime="2019-06-20T04:26:37.000Z" itemprop="datePublished">2019-06-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2019/06/20/docker%E5%AE%9E%E8%B7%B508_%E5%AE%B9%E5%99%A8%E9%97%B4%E9%80%9A%E4%BF%A1-Links%E6%96%B9%E5%BC%8F/">docker实践08:容器间通信-Links方式</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="启动redis"><a href="#启动redis" class="headerlink" title="启动redis"></a>启动redis</h1><p>容器间连接的大多数场景都是应用服务连接数据仓库。创建连接时的关键是容器名字。给被连接的容器起个友好的名字会让连接变得简单。</p>
-<p>运行一个redis，命名成：redis-server。这个redis容器就是我们的数据源容器</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name redis-server redis</span><br></pre></td></tr></table></figure>
-<h1 id="创建连接"><a href="#创建连接" class="headerlink" title="创建连接"></a>创建连接</h1><p>启动一个容器并连接一个数据源容器需要使用的语句是：*-link &lt;container-name|id&gt;:<alias>*</p>
-<p>别名用来配置应用程序容器是如何调用数据源的配置信息的，当更改到其他环境的时候，就不需要再修改配置信息了。</p>
-<h2 id="连接如何工作"><a href="#连接如何工作" class="headerlink" title="连接如何工作"></a>连接如何工作</h2><p>这个例子中，我们使用Alpine容器连接到redis-server（别名命名成了redis）。</p>
-<p>连接被创建时，docker会做两件事。</p>
-<p>一，docker会基于连接，向容器中创建一些环境变量。根据这些环境变量可以根据给定的名字获取到一些信息，比如端口号，ip地址。</p>
-<p>通过env命令可以输出所有的环境变量。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --link redis-server:redis alpine env</span><br></pre></td></tr></table></figure>
-<p>二，docker会将容器的Host文件更新3个连接到数据源容器的名字，源名字，别名和hash-id。可以使用cat /etc/hosts来查看。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --link redis-server:redis alpine cat &#x2F;etc&#x2F;hosts</span><br></pre></td></tr></table></figure>
-<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><p>连接建立之后，可以ping数据源容器。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --link redis-server:redis alpine ping -c 1 redis</span><br></pre></td></tr></table></figure>
-<h1 id="连接到应用"><a href="#连接到应用" class="headerlink" title="连接到应用"></a>连接到应用</h1><p>连接创建之后，应用容器就可以连接到redis了。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 3000:3000 --link redis-server:redis katacoda&#x2F;redis-node-docker-example</span><br></pre></td></tr></table></figure>
-<h1 id="连接到redis-cli"><a href="#连接到redis-cli" class="headerlink" title="连接到redis-cli"></a>连接到redis-cli</h1><p>使用下面的命令可以启动一个redis-cli容器，并通过别名连接到redis服务容器。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it --link redis-server:redis redis redis-cli -h redis</span><br></pre></td></tr></table></figure>
-<p>使用redis的命令查看redis（比如：KEYS *），quit命令用于退出cli。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2019/06/20/docker%E5%AE%9E%E8%B7%B508_%E5%AE%B9%E5%99%A8%E9%97%B4%E9%80%9A%E4%BF%A1-Links%E6%96%B9%E5%BC%8F/" data-id="ckl4x2p0j000ftprc6vsb1j7e" data-title="docker实践08:容器间通信-Links方式" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/" rel="tag">docker</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-docker实践07_数据容器" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2019/06/20/docker%E5%AE%9E%E8%B7%B507_%E6%95%B0%E6%8D%AE%E5%AE%B9%E5%99%A8/" class="article-date">
-  <time class="dt-published" datetime="2019-06-20T03:26:37.000Z" itemprop="datePublished">2019-06-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2019/06/20/docker%E5%AE%9E%E8%B7%B507_%E6%95%B0%E6%8D%AE%E5%AE%B9%E5%99%A8/">docker实践07:数据容器</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="创建容器"><a href="#创建容器" class="headerlink" title="创建容器"></a>创建容器</h1><p>数据容器：仅用来存储和管理数据的容器。</p>
-<p>被宿主机管理，但是用docker ps命令不会显示。</p>
-<p>首先给容器起个通用的名字。然后使用busybox作为基础，因为busybox很小很轻量，在宿主机间访问和移动很方便。</p>
-<p>-v 选项用来定义这个容器的哪个位置允许其他容器读取写入数据。</p>
-<p>比如创建一个存储配置文件的容器</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker create -v &#x2F;config --name dataContainer busybox</span><br></pre></td></tr></table></figure>
-<h1 id="复制文件"><a href="#复制文件" class="headerlink" title="复制文件"></a>复制文件</h1><p>可以从当前目录向这个容器内复制文件，使用命令：docker cp</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 把config.conf文件复制到dataContainer容器的config路径</span><br><span class="line">docker cp config.conf dataContainer:&#x2F;config&#x2F;</span><br></pre></td></tr></table></figure>
-<h1 id="挂载卷"><a href="#挂载卷" class="headerlink" title="挂载卷"></a>挂载卷</h1><p>数据容器里已经有我们的config.conf文件了。在运行其他独立的容器时，可以关联这个容器获取文件。</p>
-<p>使用*–volumes-from <container>*，可以在其他容器加载的的时候挂载卷。下面的这个例子会启动一个ubuntu容器并关联到数据容器，当列出config文件夹内容时，可以看到数据容器的文件内容。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --volumes-from dataContainer ubuntu ls &#x2F;config</span><br></pre></td></tr></table></figure>
-<p>如果容器*/config*目录已经存在的话，volumes-from的路径会覆盖并被使用。</p>
-<p>可以同时使用多个文件夹。</p>
-<h1 id="导入-导出-容器"><a href="#导入-导出-容器" class="headerlink" title="导入/导出 容器"></a>导入/导出 容器</h1><p>如果想把数据容器移动到其他的机器上，可以把容器导出成 .tar 文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker export dataContainer &gt; dataContainer.tar</span><br></pre></td></tr></table></figure>
-<p>下面的命令可以把 .tar 文件作为数据容器 导入回docker</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker import dataContainer.tar</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2019/06/20/docker%E5%AE%9E%E8%B7%B507_%E6%95%B0%E6%8D%AE%E5%AE%B9%E5%99%A8/" data-id="ckl4x2p0i000dtprcabml3nbq" data-title="docker实践07:数据容器" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/" rel="tag">docker</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-
-
-  <nav id="page-nav">
-    
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
-</section>
-        
-          <aside id="sidebar">
-  
-    
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker-%E5%BE%AE%E6%9C%8D%E5%8A%A1/" rel="tag">docker 微服务</a></li></ul>
-    </div>
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">恶也能多</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/docker/" style="font-size: 20px;">docker</a> <a href="/tags/docker-%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 10px;">docker 微服务</a>
     </div>
-  </div>
+  </footer>
 
   
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li></ul>
-    </div>
-  </div>
-
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
 
   
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2019/11/23/docker%E5%90%AF%E5%8A%A8kafka/">docker启动kafka</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/15/docker%E5%AE%9E%E8%B7%B515%EF%BC%9A%E4%BD%BF%E7%94%A8Docker-Compose%E8%BF%9B%E8%A1%8C%E7%BC%96%E6%8E%92/">docker实践15：使用Docker Compose进行编排</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/13/docker%E5%AE%9E%E8%B7%B514%EF%BC%9A%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%AE%B9%E5%99%A8/">docker实践14：负载均衡容器</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/07/docker%E5%AE%9E%E8%B7%B513%EF%BC%9Adocker%E5%85%83%E6%95%B0%E6%8D%AE%E5%92%8C%E6%A0%87%E7%AD%BE/">docker实践13：docker元数据和标签</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/07/docker%E5%AE%9E%E8%B7%B512%EF%BC%9A%E4%BD%BF%E7%94%A8%E9%87%8D%E5%90%AF%E7%AD%96%E7%95%A5%E4%BF%9D%E6%8C%81%E5%8F%AF%E7%94%A8%E4%BF%9D%E6%8C%81%E5%8F%AF%E7%94%A8/">docker实践12：使用重启策略保持可用</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2021 John Doe<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
 
 
-<script src="/js/jquery-3.4.1.min.js"></script>
+
 
 
 
   
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
 
 
 
 
 
-  </div>
 </body>
 </html>
