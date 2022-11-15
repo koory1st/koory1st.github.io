@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"koory1st.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-1}},"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="这是一篇国外的 帖子的翻译。顺便强化一下自己的记忆。 前言有不少的同学在学 Rust 的过程中被 Rust 的 字符串相关 (&amp;str，String) 内容噎的够呛。字符串的相关内容，确实是除了Rust 的所有权外，另一个让人望而生畏的知识点。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="为什么 Rust 里的字符串很难">
+<meta property="og:url" content="http://koory1st.github.io/posts/14264.html">
+<meta property="og:site_name" content="程序码头">
+<meta property="og:description" content="这是一篇国外的 帖子的翻译。顺便强化一下自己的记忆。 前言有不少的同学在学 Rust 的过程中被 Rust 的 字符串相关 (&amp;str，String) 内容噎的够呛。字符串的相关内容，确实是除了Rust 的所有权外，另一个让人望而生畏的知识点。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-12-24T08:08:55.000Z">
+<meta property="article:modified_time" content="2022-02-26T04:52:15.480Z">
+<meta property="article:author" content="恶也能多">
+<meta property="article:tag" content="Rust">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://koory1st.github.io/posts/14264.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>为什么 Rust 里的字符串很难 | 程序码头</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?5a965150a69cef85398f027a23e1c21f";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">程序码头</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">13</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">28</span></a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://koory1st.github.io/posts/14264.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="恶也能多">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="程序码头">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          为什么 Rust 里的字符串很难
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-12-24 16:08:55" itemprop="dateCreated datePublished" datetime="2021-12-24T16:08:55+08:00">2021-12-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-02-26 12:52:15" itemprop="dateModified" datetime="2022-02-26T12:52:15+08:00">2022-02-26</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>这是一篇国外的 <a target="_blank" rel="noopener" href="https://www.brandons.me/blog/why-rust-strings-seem-hard">帖子</a>的翻译。顺便强化一下自己的记忆。</p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>有不少的同学在学 <code>Rust</code> 的过程中被 <code>Rust</code> 的 字符串相关 (<code>&amp;str</code>，<code>String</code>) 内容噎的够呛。字符串的相关内容，确实是除了<code>Rust</code> 的所有权外，另一个让人望而生畏的知识点。</p>
+<span id="more"></span>
+
+<p>因为对比来看，在其他大多数的语言中，程序员处理字符串都是非常容易的，可以把字符串拼接到一起，或者分割开，怎么折腾都行，都不会出错，用起来就像是原始类型。</p>
+<p>如果你只有这类语言的开发经验，碰巧 C语言 或者 C++的开发经验也不多，那么让你操作一下 <code>Rust</code> 里的字符串很可能是你学习开发语言经历中的一次当头棒喝。</p>
+<p>“怎么回事，字符串怎么能这么复杂，操作起来咋这么多限制，咋需要这么多步骤，看起来就像脱裤子放…”</p>
+<p>如果你想做一些低层次编程，但是从没有低层次编程的经验，用 <code>Rust</code>准没错！用途广，对开发者友好。可是如果你真的没有 <code>C</code> 语言或者 <code>C++</code>开发背景，那么用 Rust 的过程中，遇到的挑战也不少。</p>
+<p>“我劝你回去学一遍 <code>C++</code>，本文完。”。等一哈，我可不会这么说，我要深入探讨一下这个最常见的问题，还会给出一些解释，最好能让各位同学读完之后能觉得，“果然<code>Rust</code> 友好了一点了呢”。</p>
+<p>闲话少叙，这闲话…….</p>
+<h2 id="那么，字符串到底是个啥？"><a href="#那么，字符串到底是个啥？" class="headerlink" title="那么，字符串到底是个啥？"></a>那么，字符串到底是个啥？</h2><p>string 还不简单吗？就是个基本类型呗，和数值啊布尔类型啥的都差不多，能通过字面量创建，比如把”张三“赋值给一个字符串变量，再传个值，再复个制，再拼接个字符串，何止，再拼个数值拼个布尔，再从方法里返回，咋整都行。</p>
+<p>但 <code>Rust</code> 的字符串真不这样的。</p>
+<p>大多数程序都会用到字符串，这给了人们一种错觉，字符串是基本类型吧。还真不是！</p>
+<p>真正的基本类型与字符串相比，一个特别明显的区别就是，基本类型有固定大小，这在 Rust 中很重要。在 Rust 中，两个相同类型的数值(比如 <code>f64</code>，不熟悉的话就当成 Java 的 <code>double</code> 类型)会占用相同的内存大小。这意味着我们可以为变量或函数参数留出空间，任何可能的<code>f64</code>类型都能放得下。不管做什么样的数学运算，也不管这个数是非常大，还是非常小，都放得下。</p>
+<p>然而，字符串并没有固定大小。比如，有一个字符串 A和字符串 B，他们内容不相同(”foo“和”foo“是相同的)，那么很大可能他们的大小也是不同的。”foofoo“的大小是”foo“的两倍大。</p>
+<blockquote>
+<p>注意：<br>严格来讲会有一些额外的数据，比如长度，所以大小并非非常精确的两倍大。不过还是很接近的，足够表达我想说的。</p>
+</blockquote>
+<p>这样问题来了，语言的底层实现里，在编译期，扁平的数据结构必须要有已知的大小，这即便在高级语言中也不例外。任何数据，如果在编译期不能确定大小，或者在运行期大小会动态改变，那么这个数据需要存放在堆区，在运行期才动态分配空间。这一点在大多数语言中被隐藏了，比如 JavaScript。</p>
+<blockquote>
+<p>注意：<br>堆区就是一个大的内存桶，你的代码可以向系统借用里面的内存空间。假设你的程序说：”我需要 X 字节的空间，我想干点啥“，系统说：”好勒，您的X 字节的空间来了“。过一会你的程序又说：”X 字节有点不够用，其实我需要 Y 字节空间“，一个新的内存空间会被划过来，把刚刚旧的全部内容复制进新的里，再把旧的空间归还给系统。<code>Rust</code> 的 <code>Vec</code> 其实就是这么工作的！JavaScript 的数组也是这么工作的，并且等会我们就会发现，<code>Rust</code> 的 <code>String</code> 也是这么工作的。</p>
+</blockquote>
+<blockquote>
+<p>那么数值这类的类型为什么不需要这么做呢？因为编译器可以知道数值的内存大小，并且知道数值的内存大小永远不会改变，所以根本不需要向堆区申请空间。</p>
+</blockquote>
+<p>所以我希望大家记住，字符串是一种数据结构，是存放在堆区的数据结构，而不是原始类型。字符串基本上可以算作是字符数组(在 <code>C</code>语言中可真就是字符数组)。当你把两个字符串加到一起时，程序无法预期结果所需要的空间有多大，所以需要在运行期，从堆区申请空间来存放结果。当你把一个字符串传给函数时，实际上传递的是一个指针，这个指针指向了放在堆区里的数组，其他代码可以通过这个指针找到堆区里的内容。而指针本身，就像数值类型一样，有固定的大小。</p>
+<p>”但是字符串特别常用啊！“你可能会想。”我们经常会把字符串分割，拼接。要是把字符串当成数组来用的话，你还是杀了我吧，而且一旦长度发生变化了，还得手动分配空间，复制，取消之前的分配空间？“</p>
+<p>你说对了！</p>
+<h2 id="大多数语言是如何处理字符串的"><a href="#大多数语言是如何处理字符串的" class="headerlink" title="大多数语言是如何处理字符串的"></a>大多数语言是如何处理字符串的</h2><p>这里的”大多数语言“我指的是目前比较常见的使用的比较多的语言。例如 JavaScript，Python，Java，C#，Go，Kotlin，Swift 等等。在这些语言中，字符串是不可变的。你可以拿一个不同的字符串放入这个字符串位(或者字符串槽)，但是你不能改变字符串本身的内容。新的字符串替换掉了旧的，旧的字符串随风而逝，被扫地大妈一波带走。(要是还有其他代码在使用它，它就不会被带走)。</p>
+<blockquote>
+<p>小贴士<br>垃圾回收是一种语言特性，系统可以自动的找出某些被借出的内存空间已经不再被使用了，然后把他们回收到堆区，以便之后再分配给别人使用。</p>
+</blockquote>
+<p>这会带来两个影响：</p>
+<ol>
+<li>这会让人感觉字符串就是一个原始类型：这些语言里的数值或者布尔就是不可变的，就像是数值类型一样，操作数值类型时，你会把一个新的数值放入数值位(数值槽)里，而不是改变数值本身。</li>
+<li>这在很多方面操作字符串变得非常简单。就像使用数值一样，可以把字符串放心大胆的传给一个函数，甚至传给一个线程，完全不用担心他们会如何修改这个字符串，而接收这个字符串的一方也完全不用担心这个字符串会被传递者修改。这一切都可以和这些语言所有的垃圾回收机制完美的契合。<blockquote>
+<p>小贴士<br>Ruby 语言是个例外，我对他还不太熟。尽管Ruby是一门带有垃圾回收的高级语言，但他的字符串是可变的。</p>
+</blockquote>
+</li>
+</ol>
+<p>如果你是一个 C，C++，Rust 的初学者，以上可能就是你对字符串的理解。这种对字符串理解方式很可能已经深入骨髓了，改变需要很费一番力气。</p>
+<h2 id="C-和-Rust-是如何处理字符串的"><a href="#C-和-Rust-是如何处理字符串的" class="headerlink" title="C++和 Rust 是如何处理字符串的"></a>C++和 Rust 是如何处理字符串的</h2><p>那么C++和 Rust 是如何处理字符串的呢？这里有两个消息，你想先听哪个？</p>
+<p>我先说好消息吧，字符串其实并非仅是字符数组。这两种语言都用了数据结构包装了字符串数组，让一些字符串操作变容易了，比如说把一个字符串拼接到另一个字符串，不需要手动的控制长度或者重新分配空间。这些操作都会被自动完成。</p>
+<p>而坏消息呢(是否是坏消息取决于你看问题的角度)，和上面的其他语言相比，Rust 并没有把字符串的细节隐藏的太多。你必须把字符串看做数据结构体，而不是原始类型。Rust 里，<code>String</code>结构体和字符型的 <code>Vec</code>(相当于 Python 里的<code>list</code>，或者 Java 里的<code>ArrayList</code>，或者 JavaScript 里的数组) 非常相似，并且附带了一些额外的功能。跟<code>Vec</code>一样，你能在结尾添加字符或移除字符，还可以改变中间的字符。其他引用了相同<code>String</code>的代码也会看到内容被变化了。你必须显示的创建<code>String</code>(通常是使用<code>String::new()</code>或者<code>String::from()</code>)，也可能是可变的，超出作用域之后也会被回收。</p>
+<p>为什么要这么做呢？为什么不能像其他语言一样简单一点呢？</p>
+<p>因为要控制。C++和 Rust的设计目标是可以细粒度的进行控制。比如有时候你能想重用一个已经存在的<code>String</code>，替换掉里面的内容，或者在之前的内容上添加一些内容，而不是在<code>+</code>操作之后拿一个全新分配的内存替换掉它。当然提供这种程度的控制就意味着更复杂的认知模型。</p>
+<h2 id="那-amp-str又是个啥？"><a href="#那-amp-str又是个啥？" class="headerlink" title="那&amp;str又是个啥？"></a>那<code>&amp;str</code>又是个啥？</h2><p><code>String</code>是最接近其他语言中字符串概念的Rust 概念，但是当你敲出一行字符串字面量时，你得到的类型是<code>&amp;str</code>:</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> foo: &amp;<span class="built_in">str</span> = <span class="string">&quot;What the heck?&quot;</span>;</span><br></pre></td></tr></table></figure>
+<p><code>&amp;str</code>是字符串切片。我们上面提过字符串是可以看做是一个字符数组，那么<code>&amp;str</code>就是对字符数组一个片段的引用(有指针，有长度)。如果是一个可变的切片(<code>&amp;mut str</code>)，那么可以改变其内容，但不能改变其长度。一个字符串切片总是代表内存中相同的一串字节，你不能给它增加或者删除字节，因为它并不知道在自己的空间不够的时候如何去重新分配自己的空间。它甚至都不知道这些字节是否是在堆区中。它仅仅就是个引用而已。</p>
+<p>理解 Rust 中字符串的关键是，时刻谨记：每个<code>&amp;str</code>都需要存放在某处。通常它存放在<code>String</code>当中(我们可以调用<code>String</code>的<code>.as_str()</code>方法获取<code>&amp;str</code>)，但是当你的代码里包含像“What the heck?”的字符串字面量时，这个字符串指向的是你的程序的一部分。你的程序代码里包含这个字符数组，因此<code>&amp;str</code>可以直接指向它。但是它不能变大或者缩小空间(你甚至都不能修改它的内容，根本拿不到它的<code>&amp;mut str</code>)，因为它的周围还有其他的东西跟它紧挨着。</p>
+<h2 id="综上所述"><a href="#综上所述" class="headerlink" title="综上所述"></a>综上所述</h2><p>大多数刚开始使用 Rust 里的字符串的同学撞到的第一堵墙，应该是下面这样。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a: &amp;<span class="built_in">str</span> = <span class="string">&quot;hello &quot;</span>;</span><br><span class="line"><span class="keyword">let</span> b: &amp;<span class="built_in">str</span> = <span class="string">&quot;world&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> c = a + b;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">error[E0369]: cannot add `&amp;str` to `&amp;str`</span><br><span class="line">错误[E0369]: `&amp;str`不能和`&amp;str`相加</span><br><span class="line"> --&gt; src/main.rs:9:15</span><br><span class="line">  |</span><br><span class="line">9 |     let c = a + b;</span><br><span class="line">  |             - ^ - &amp;str</span><br><span class="line">  |             | |</span><br><span class="line">  |             | `+` cannot be used to concatenate two `&amp;str` strings</span><br><span class="line">  |             | `+` 不能连接 2 个`&amp;str`字符串</span><br><span class="line">  |             &amp;str</span><br><span class="line">  |</span><br><span class="line">help: `to_owned()` can be used to create an owned `String` from a string</span><br><span class="line">reference. String concatenation appends the string on the right to the string</span><br><span class="line">on the left and may require reallocation. This requires ownership of the string</span><br><span class="line">on the left</span><br><span class="line">帮助: 调用`to_owned()` 可以从字符串引用生成一个带有所有权的`String`。</span><br><span class="line">字符串连接：将右边的字符串拼接到左边的字符串里，需要重新分配内存。</span><br><span class="line">要求左边的字符串必须有所有权。</span><br><span class="line">  |</span><br><span class="line">9 |     let c = a.to_owned() + b;</span><br><span class="line">  |             ~~~~~~~~~~~~</span><br></pre></td></tr></table></figure>
+<p>“什么鬼？我把两个字符串相加还要先调用一个方法？这语言弱爆了！”</p>
+<p>先别急，回顾一下我们刚刚提到的：<code>a</code>和<code>b</code>都存放在我们的程序代码里，而程序代码是不能改变的。所以如果我们要把它们相加，那么新的字符串应该放在哪呢？</p>
+<p>是的，它必须存在于也必须存在于一个<code>String</code>当中。语言无法预先知道它的大小会是多少，所以我们需要给它安排一个动态的空间来适应它的大小需求。</p>
+<p>我们怎么获得这个<code>String</code>呢？我们有若干种方式！我们可以单独的创建一个：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a: &amp;<span class="built_in">str</span> = <span class="string">&quot;hello &quot;</span>;</span><br><span class="line"><span class="keyword">let</span> b: &amp;<span class="built_in">str</span> = <span class="string">&quot;world&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> <span class="keyword">mut</span> new_string: <span class="built_in">String</span> = <span class="built_in">String</span>::new();</span><br><span class="line"></span><br><span class="line">new_string.push_str(a);</span><br><span class="line">new_string.push_str(b);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> c = new_string.as_str();</span><br></pre></td></tr></table></figure>
+<p>这个方式显得有点笨拙。幸运的是，Rust 还提供了一些方便的方式。Rust 里，<code>+</code>操作符如果左边是个<code>String</code>，右边是个<code>&amp;str</code>，它会调用左边<code>String</code>的<code>.push_str()</code>方法，让它可变，并拥有<code>&amp;str</code>的内容的副本，最后这个<code>String</code>就是这个加法操作的结果。所以下面这个方式可以达到效果：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> c = <span class="built_in">String</span>::from(<span class="string">&quot;hello &quot;</span>) + <span class="string">&quot;world&quot;</span>;  <span class="comment">// c is a String, not a &amp;str!</span></span><br></pre></td></tr></table></figure>
+<p>跟下面这个方式是等效的：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="keyword">mut</span> new_string: <span class="built_in">String</span> = <span class="built_in">String</span>::from(<span class="string">&quot;hello &quot;</span>);</span><br><span class="line">new_string.push_str(<span class="string">&quot;world&quot;</span>);</span><br><span class="line"><span class="keyword">let</span> c = new_string;</span><br></pre></td></tr></table></figure>
+<p>译者注：其实看<code>String</code>对操作符<code>+</code>的重载可以看到其实内部就是这么实现的</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#[cfg(not(no_global_oom_handling))]</span></span><br><span class="line"><span class="meta">#[stable(feature = <span class="meta-string">&quot;rust1&quot;</span>, since = <span class="meta-string">&quot;1.0.0&quot;</span>)]</span></span><br><span class="line"><span class="keyword">impl</span> Add&lt;&amp;<span class="built_in">str</span>&gt; <span class="keyword">for</span> <span class="built_in">String</span> &#123;</span><br><span class="line">    <span class="class"><span class="keyword">type</span> <span class="title">Output</span></span> = <span class="built_in">String</span>;</span><br><span class="line">    <span class="meta">#[inline]</span></span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">add</span></span>(<span class="keyword">mut</span> <span class="keyword">self</span>, other: &amp;<span class="built_in">str</span>) -&gt; <span class="built_in">String</span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.push_str(other);</span><br><span class="line">        <span class="keyword">self</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>好了，最后一件事：刚刚的错误提示里，<code>.to_owned()</code>是什么呢？<code>.to_owned()</code>是 Rust 里一些数据类型实现的方法，就是用来处理这种情况的。我们来看一下文档：</p>
+<blockquote>
+<p>[<code>ToOwned </code>是]对借来的数据进行克隆的一种泛型。<br>有些类型通过实现 Clone trait，可以从借用变成拥有所有权。但是 Clone 仅适用于从&amp;T 到 T。而 ToOwned trait 将 Clone 泛化到让指定类型从借用变成拥有所有权。</p>
+</blockquote>
+<p>说的有点难懂，这段话的要点就是：当你有一个非可变引用时，你还要让它可变(我们做的就是这样的，需要把“world”放到一个地方)，调用这个方法会得到一个可变的副本。在<code>&amp;str</code>的时候，它的副本就是<code>String</code>。所以，就有：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> foo: <span class="built_in">String</span> = <span class="string">&quot;some &amp;str&quot;</span>.to_owned();</span><br></pre></td></tr></table></figure>
+<p>当你有 2 个<code>&amp;str</code>要拼接到一起，得到一个<code>String</code>的话，这可能是最简洁的方式，也就是编译器建议你使用的方式：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> foo: <span class="built_in">String</span> = <span class="string">&quot;hello &quot;</span>.to_owned() + <span class="string">&quot;world&quot;</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>呼~~，这真的比我想的要长的多。</p>
+<p>Rust 是一种很特别的强大的语言，它的独特性体现在很多方面，尽管也都伴随着一些挑战。因为 Rust，大量的程序员开始进行低层级的代码开发，而没有被 C 和 C++劝退。这真是太赞了。</p>
+<p>但是提高Rust 的开发效率就意味着要知道它到底是怎么工作的，否则你会一直和编译器斗争(这也比不停地编写 bug 要好)。希望我今天帮大家解决了一个痛点。</p>
+<p>总结：每一个字符串内容都要存放在某个位置，这个位置可能是引号里的字符串字面量，可能是堆区的<code>String</code>里，或者其他地方。操作字符串时，你得弄明白字符串内容存放在哪，或者将会存放在哪。如果没有地方放，那么代码就不能编译。如果一个引用或者切片生存期超过了它指向的字符串内容(借用是另外的主题)，代码也不能编译。时刻谨记“在哪”，会让你的代码更容易的运行起来。</p>
+<p>祝你 Rust 愉快。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>恶也能多
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://koory1st.github.io/posts/14264.html" title="为什么 Rust 里的字符串很难">http://koory1st.github.io/posts/14264.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+          <div class="social-item">
+            <div>微信公众号:程序码头</div>
+            <img src="/images/cxmt_wechat_qrcode.png"/>
+          </div>
+        
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Rust/" rel="tag"># Rust</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/7e95803e.html" rel="prev" title="快速搭建基于snowpack的svelte项目">
+      <i class="fa fa-chevron-left"></i> 快速搭建基于snowpack的svelte项目
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/f10e1981.html" rel="next" title="公众号文章列表">
+      公众号文章列表 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%82%A3%E4%B9%88%EF%BC%8C%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%88%B0%E5%BA%95%E6%98%AF%E4%B8%AA%E5%95%A5%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">那么，字符串到底是个啥？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%A7%E5%A4%9A%E6%95%B0%E8%AF%AD%E8%A8%80%E6%98%AF%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84"><span class="nav-number">3.</span> <span class="nav-text">大多数语言是如何处理字符串的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C-%E5%92%8C-Rust-%E6%98%AF%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84"><span class="nav-number">4.</span> <span class="nav-text">C++和 Rust 是如何处理字符串的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%82%A3-amp-str%E5%8F%88%E6%98%AF%E4%B8%AA%E5%95%A5%EF%BC%9F"><span class="nav-number">5.</span> <span class="nav-text">那&amp;str又是个啥？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%BC%E4%B8%8A%E6%89%80%E8%BF%B0"><span class="nav-number">6.</span> <span class="nav-text">综上所述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">恶也能多</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/koory1st" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;koory1st" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">恶也能多</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'a14b26b7ed23db3d37f3',
+      clientSecret: '8c241aa4d8322607e65488b97cc80447d76b8c23',
+      repo        : 'koory1st.github.io',
+      owner       : 'koory1st',
+      admin       : ['koory1st'],
+      id          : 'a694489af23405a9aaf3c42d863dfa12',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>
