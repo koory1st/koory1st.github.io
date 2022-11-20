@@ -20,27 +20,20 @@
     var CONFIG = {"hostname":"koory1st.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-1}},"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="前言SvelteSvelte是一个令我非常惊喜的前端框架，他的作者是Rollup作者Rich Harris。和React，Vue等框架不同，它基本仅是个编译器，基本没有运行期，它没有使用vdom，所以它自称速度非常的快，效率特别好。">
+  <meta name="description" content="目前来看， hello程序只存在于target&#x2F;debug。 但是，如果我把它拷贝到环境变量PATH的任意一个目录里的话， 我就能成功运行测试了。不过，我并不想这么干， 我只想在当前的crate里进行测试。可以使用assert_cmd 这个crate， 它可以在当前的crate目录下找到对应的程序。首先要做的就是把它加入到Cargo.toml的development dependency 里。这将">
 <meta property="og:type" content="article">
-<meta property="og:title" content="快速搭建基于snowpack的svelte项目">
-<meta property="og:url" content="http://koory1st.github.io/posts/7e95803e.html">
+<meta property="og:title" content="Rust开发命令行工具 001_3 Hello World 为测试添加依赖项">
+<meta property="og:url" content="http://koory1st.github.io/posts/f2b62c55.html">
 <meta property="og:site_name" content="程序码头">
-<meta property="og:description" content="前言SvelteSvelte是一个令我非常惊喜的前端框架，他的作者是Rollup作者Rich Harris。和React，Vue等框架不同，它基本仅是个编译器，基本没有运行期，它没有使用vdom，所以它自称速度非常的快，效率特别好。">
+<meta property="og:description" content="目前来看， hello程序只存在于target&#x2F;debug。 但是，如果我把它拷贝到环境变量PATH的任意一个目录里的话， 我就能成功运行测试了。不过，我并不想这么干， 我只想在当前的crate里进行测试。可以使用assert_cmd 这个crate， 它可以在当前的crate目录下找到对应的程序。首先要做的就是把它加入到Cargo.toml的development dependency 里。这将">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://www.snowpack.dev/img/snowpack-unbundled-example-3.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/koory1st/pic_for_blog/main/img/20210221190638.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/koory1st/pic_for_blog/main/img/20210221191844.png">
-<meta property="article:published_time" content="2021-02-21T18:30:38.000Z">
-<meta property="article:modified_time" content="2022-11-20T12:04:22.471Z">
+<meta property="article:published_time" content="2022-11-20T20:03:07.000Z">
+<meta property="article:modified_time" content="2022-11-20T12:04:22.467Z">
 <meta property="article:author" content="恶也能多">
-<meta property="article:tag" content="web">
-<meta property="article:tag" content="前端">
-<meta property="article:tag" content="svelte">
-<meta property="article:tag" content="snowpack">
+<meta property="article:tag" content="Rust">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://www.snowpack.dev/img/snowpack-unbundled-example-3.png">
 
-<link rel="canonical" href="http://koory1st.github.io/posts/7e95803e.html">
+<link rel="canonical" href="http://koory1st.github.io/posts/f2b62c55.html">
 
 
 <script id="page-configurations">
@@ -53,7 +46,7 @@
   };
 </script>
 
-  <title>快速搭建基于snowpack的svelte项目 | 程序码头</title>
+  <title>Rust开发命令行工具 001_3 Hello World 为测试添加依赖项 | 程序码头</title>
   
 
 
@@ -178,7 +171,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://koory1st.github.io/posts/7e95803e.html">
+    <link itemprop="mainEntityOfPage" href="http://koory1st.github.io/posts/f2b62c55.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -191,7 +184,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          快速搭建基于snowpack的svelte项目
+          Rust开发命令行工具 001_3 Hello World 为测试添加依赖项
         </h1>
 
         <div class="post-meta">
@@ -200,16 +193,10 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2021-02-21 18:30:38" itemprop="dateCreated datePublished" datetime="2021-02-21T18:30:38+00:00">2021-02-21</time>
+              <time title="创建时间：2022-11-20 20:03:07 / 修改时间：12:04:22" itemprop="dateCreated datePublished" datetime="2022-11-20T20:03:07+00:00">2022-11-20</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-20 12:04:22" itemprop="dateModified" datetime="2022-11-20T12:04:22+00:00">2022-11-20</time>
-              </span>
 
           
             <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
@@ -229,32 +216,14 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><h2 id="Svelte"><a href="#Svelte" class="headerlink" title="Svelte"></a>Svelte</h2><p>Svelte是一个令我非常惊喜的前端框架，他的作者是<a target="_blank" rel="noopener" href="https://rollupjs.org/guide/en/">Rollup</a>作者Rich Harris。和React，Vue等框架不同，它基本仅是个编译器，基本没有运行期，它没有使用vdom，所以它自称速度非常的快，效率特别好。</p>
-<span id="more"></span>
+        <p>目前来看， <code>hello</code>程序只存在于<code>target/debug</code>。 但是，如果我把它拷贝到环境变量<code>PATH</code>的任意一个目录里的话， 我就能成功运行测试了。不过，我并不想这么干， 我只想在当前的<code>crate</code>里进行测试。可以使用<a target="_blank" rel="noopener" href="https://docs.rs/assert_cmd/1.0.3/assert_cmd/"><code>assert_cmd</code></a> 这个<code>crate</code>， 它可以在当前的<code>crate</code>目录下找到对应的程序。<br>首先要做的就是把它加入到<code>Cargo.toml</code>的<a target="_blank" rel="noopener" href="https://doc.rust-lang.org/rust-by-example/testing/dev_dependencies.html">development dependency</a> 里。这将告诉<code>Cargo</code>，要加入的这个<code>crate</code>只在测试和性能测试（benchmarking）时使用。</p>
+<p>Cargo.toml</p>
+<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[package]</span></span><br><span class="line"><span class="attr">name</span> = <span class="string">&quot;hello&quot;</span></span><br><span class="line"><span class="attr">version</span> = <span class="string">&quot;0.1.0&quot;</span></span><br><span class="line"><span class="attr">edition</span> = <span class="string">&quot;2018&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="section">[dependencies]</span></span><br><span class="line"></span><br><span class="line"><span class="section">[dev-dependencies]</span></span><br><span class="line"><span class="attr">assert_cmd</span> = <span class="string">&quot;1&quot;</span></span><br></pre></td></tr></table></figure>
 
+<p>现在我就可以新建一个<code>Command</code>， 它会去<code>Cargo</code>的二进制目录里找。 下面的测试先不验证程序数据是否正确，先看看能不能成功。更新一下代码吧：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> assert_cmd::Command; <span class="comment">// 用来导入assert_cmd::Command</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#[test]</span></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">runs</span></span>() &#123;</span><br><span class="line">	<span class="comment">// 新建一个Command运行当前crate里的hello程序</span></span><br><span class="line">	<span class="comment">// 返回一个Result值，我假设可以被成功的Result::unwrap，因为可以找到hello程序。</span></span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut</span> cmd = Command::cargo_bin(<span class="string">&quot;hello&quot;</span>).unwrap();</span><br><span class="line">    <span class="comment">// 断言程序被成功执行</span></span><br><span class="line">    cmd.assert().success();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="Snowpack"><a href="#Snowpack" class="headerlink" title="Snowpack"></a>Snowpack</h2><p><a target="_blank" rel="noopener" href="https://www.snowpack.dev/">Snowpack</a>是一个速度非常快的前端应用的构建工具。和以往的webpack，rollup等打包构建工具的最大区别就是他的构建速度，其原因就是因为他去掉了打包阶段。</p>
-<p>上一个官网上描述snowpack原理的图。</p>
-<img src="https://www.snowpack.dev/img/snowpack-unbundled-example-3.png" style="zoom:67%;" />
-
-<h1 id="搭建工程前准备"><a href="#搭建工程前准备" class="headerlink" title="搭建工程前准备"></a>搭建工程前准备</h1><p>仅需要node和能上网。</p>
-<h1 id="开始搭建"><a href="#开始搭建" class="headerlink" title="开始搭建"></a>开始搭建</h1><p>我们直接使用snowpack预先建好的模板工程。</p>
-<p>先下载Snowpack的<a target="_blank" rel="noopener" href="https://github.com/snowpackjs/snowpack">源码</a>到本地。</p>
-<p>解压，然后进入create-snowpack-app目录中，可以看到有好多的template文件夹。</p>
-<p><img src="https://raw.githubusercontent.com/koory1st/pic_for_blog/main/img/20210221190638.png" alt="image-20210221190638382"></p>
-<p>拷贝任何一个想运行的框架文件夹，这里咱们选择app-template-svelte-typescript这个。放到任意的本地位置。</p>
-<p>用命令行工具运行</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
-
-<p>再运行</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run start</span><br></pre></td></tr></table></figure>
-
-<p>控制台会显示</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">snowpack</span><br><span class="line"></span><br><span class="line">  http://localhost:8080 • http://192.168.31.89:8080</span><br><span class="line">  Server started <span class="keyword">in</span> 32ms.</span><br><span class="line"></span><br><span class="line">▼ @snowpack/plugin-typescript</span><br><span class="line"></span><br><span class="line">  下午7:17:37 - Starting compilation <span class="keyword">in</span> watch mode...</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  下午7:17:41 - Found 0 errors. Watching <span class="keyword">for</span> file changes.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>并且会自动弹出浏览器页面</p>
-<p><img src="https://raw.githubusercontent.com/koory1st/pic_for_blog/main/img/20210221191844.png" alt="image-20210221191844012"></p>
-<p>这样就代表搭建成功了。</p>
+<p>有关于Result，它的内容很多， 现在暂时只需要知道它里面的值可能是成功：Ok，也可能是失败：Err。</p>
 
     </div>
 
@@ -270,7 +239,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://koory1st.github.io/posts/7e95803e.html" title="快速搭建基于snowpack的svelte项目">http://koory1st.github.io/posts/7e95803e.html</a>
+    <a href="http://koory1st.github.io/posts/f2b62c55.html" title="Rust开发命令行工具 001_3 Hello World 为测试添加依赖项">http://koory1st.github.io/posts/f2b62c55.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -295,10 +264,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/web/" rel="tag"># web</a>
-              <a href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag"># 前端</a>
-              <a href="/tags/svelte/" rel="tag"># svelte</a>
-              <a href="/tags/snowpack/" rel="tag"># snowpack</a>
+              <a href="/tags/Rust/" rel="tag"># Rust</a>
           </div>
 
         
@@ -307,13 +273,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/posts/189423c8.html" rel="prev" title="springboot总结">
-      <i class="fa fa-chevron-left"></i> springboot总结
+    <a href="/posts/cbccac17.html" rel="prev" title="Rust开发命令行工具 001_2 Hello World 编写并运行测试的准备阶段">
+      <i class="fa fa-chevron-left"></i> Rust开发命令行工具 001_2 Hello World 编写并运行测试的准备阶段
     </a></div>
-      <div class="post-nav-item">
-    <a href="/posts/14264.html" rel="next" title="为什么 Rust 里的字符串很难">
-      为什么 Rust 里的字符串很难 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -373,7 +336,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Svelte"><span class="nav-number">1.1.</span> <span class="nav-text">Svelte</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Snowpack"><span class="nav-number">1.2.</span> <span class="nav-text">Snowpack</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%90%AD%E5%BB%BA%E5%B7%A5%E7%A8%8B%E5%89%8D%E5%87%86%E5%A4%87"><span class="nav-number">2.</span> <span class="nav-text">搭建工程前准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA"><span class="nav-number">3.</span> <span class="nav-text">开始搭建</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -518,7 +480,7 @@ NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
       repo        : 'koory1st.github.io',
       owner       : 'koory1st',
       admin       : ['koory1st'],
-      id          : '5f2fb75aca0ba4f27e7ad1f928786bfd',
+      id          : '7bb9ec8088bcd2e4bb00ccc60675d46a',
         language: 'zh-CN',
       distractionFreeMode: true
     });

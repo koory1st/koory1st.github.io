@@ -134,7 +134,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">29</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">30</span></a>
 
   </li>
   </ul>
@@ -163,6 +163,72 @@
             
 
 <div class="post-list">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://koory1st.github.io/posts/f2b62c55.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="恶也能多">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="程序码头">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/f2b62c55.html" class="post-title-link" itemprop="url">Rust开发命令行工具 001_3 Hello World 为测试添加依赖项</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-11-20 20:03:07 / 修改时间：12:04:22" itemprop="dateCreated datePublished" datetime="2022-11-20T20:03:07+00:00">2022-11-20</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>目前来看， <code>hello</code>程序只存在于<code>target/debug</code>。 但是，如果我把它拷贝到环境变量<code>PATH</code>的任意一个目录里的话， 我就能成功运行测试了。不过，我并不想这么干， 我只想在当前的<code>crate</code>里进行测试。可以使用<a target="_blank" rel="noopener" href="https://docs.rs/assert_cmd/1.0.3/assert_cmd/"><code>assert_cmd</code></a> 这个<code>crate</code>， 它可以在当前的<code>crate</code>目录下找到对应的程序。<br>首先要做的就是把它加入到<code>Cargo.toml</code>的<a target="_blank" rel="noopener" href="https://doc.rust-lang.org/rust-by-example/testing/dev_dependencies.html">development dependency</a> 里。这将告诉<code>Cargo</code>，要加入的这个<code>crate</code>只在测试和性能测试（benchmarking）时使用。</p>
+<p>Cargo.toml</p>
+<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[package]</span></span><br><span class="line"><span class="attr">name</span> = <span class="string">&quot;hello&quot;</span></span><br><span class="line"><span class="attr">version</span> = <span class="string">&quot;0.1.0&quot;</span></span><br><span class="line"><span class="attr">edition</span> = <span class="string">&quot;2018&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="section">[dependencies]</span></span><br><span class="line"></span><br><span class="line"><span class="section">[dev-dependencies]</span></span><br><span class="line"><span class="attr">assert_cmd</span> = <span class="string">&quot;1&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>现在我就可以新建一个<code>Command</code>， 它会去<code>Cargo</code>的二进制目录里找。 下面的测试先不验证程序数据是否正确，先看看能不能成功。更新一下代码吧：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> assert_cmd::Command; <span class="comment">// 用来导入assert_cmd::Command</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#[test]</span></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">runs</span></span>() &#123;</span><br><span class="line">	<span class="comment">// 新建一个Command运行当前crate里的hello程序</span></span><br><span class="line">	<span class="comment">// 返回一个Result值，我假设可以被成功的Result::unwrap，因为可以找到hello程序。</span></span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut</span> cmd = Command::cargo_bin(<span class="string">&quot;hello&quot;</span>).unwrap();</span><br><span class="line">    <span class="comment">// 断言程序被成功执行</span></span><br><span class="line">    cmd.assert().success();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>有关于Result，它的内容很多， 现在暂时只需要知道它里面的值可能是成功：Ok，也可能是失败：Err。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -198,7 +264,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-20 08:46:54" itemprop="dateModified" datetime="2022-11-20T08:46:54+00:00">2022-11-20</time>
+                <time title="修改时间：2022-11-20 12:04:22" itemprop="dateModified" datetime="2022-11-20T12:04:22+00:00">2022-11-20</time>
               </span>
 
           
@@ -270,7 +336,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-20 08:46:54" itemprop="dateModified" datetime="2022-11-20T08:46:54+00:00">2022-11-20</time>
+                <time title="修改时间：2022-11-20 12:04:22" itemprop="dateModified" datetime="2022-11-20T12:04:22+00:00">2022-11-20</time>
               </span>
 
           
@@ -346,7 +412,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-20 08:46:54" itemprop="dateModified" datetime="2022-11-20T08:46:54+00:00">2022-11-20</time>
+                <time title="修改时间：2022-11-20 12:04:22" itemprop="dateModified" datetime="2022-11-20T12:04:22+00:00">2022-11-20</time>
               </span>
 
           
@@ -419,7 +485,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-20 08:46:54" itemprop="dateModified" datetime="2022-11-20T08:46:54+00:00">2022-11-20</time>
+                <time title="修改时间：2022-11-20 12:04:22" itemprop="dateModified" datetime="2022-11-20T12:04:22+00:00">2022-11-20</time>
               </span>
 
           
@@ -491,7 +557,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-20 08:46:54" itemprop="dateModified" datetime="2022-11-20T08:46:54+00:00">2022-11-20</time>
+                <time title="修改时间：2022-11-20 12:04:22" itemprop="dateModified" datetime="2022-11-20T12:04:22+00:00">2022-11-20</time>
               </span>
 
           
@@ -563,7 +629,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-20 08:46:54" itemprop="dateModified" datetime="2022-11-20T08:46:54+00:00">2022-11-20</time>
+                <time title="修改时间：2022-11-20 12:04:22" itemprop="dateModified" datetime="2022-11-20T12:04:22+00:00">2022-11-20</time>
               </span>
 
           
@@ -635,7 +701,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-20 08:46:54" itemprop="dateModified" datetime="2022-11-20T08:46:54+00:00">2022-11-20</time>
+                <time title="修改时间：2022-11-20 12:04:22" itemprop="dateModified" datetime="2022-11-20T12:04:22+00:00">2022-11-20</time>
               </span>
 
           
@@ -708,7 +774,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-20 08:46:54" itemprop="dateModified" datetime="2022-11-20T08:46:54+00:00">2022-11-20</time>
+                <time title="修改时间：2022-11-20 12:04:22" itemprop="dateModified" datetime="2022-11-20T12:04:22+00:00">2022-11-20</time>
               </span>
 
           
@@ -780,7 +846,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-20 08:46:54" itemprop="dateModified" datetime="2022-11-20T08:46:54+00:00">2022-11-20</time>
+                <time title="修改时间：2022-11-20 12:04:22" itemprop="dateModified" datetime="2022-11-20T12:04:22+00:00">2022-11-20</time>
               </span>
 
           
@@ -799,79 +865,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/posts/189423c8.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://koory1st.github.io/posts/c75f1dc.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="恶也能多">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="程序码头">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/c75f1dc.html" class="post-title-link" itemprop="url">搭建个人版网页聊天室 rocket chat</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-12-26 19:53:16" itemprop="dateCreated datePublished" datetime="2019-12-26T19:53:16+00:00">2019-12-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-20 08:46:54" itemprop="dateModified" datetime="2022-11-20T08:46:54+00:00">2022-11-20</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>今天尝试了一下使用类slack的网页聊天服务:rocket chat.感觉搭建起来还是挺方便的.当然其中也遇到一些坑,所以把最后成功的方式记录下来.</p>
-<p>由于rocket chat使用了mongo做存储,所以也需要启动一个mongo的容器.</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/posts/c75f1dc.html#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -961,7 +954,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-count">30</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
